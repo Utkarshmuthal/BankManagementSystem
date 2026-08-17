@@ -1,0 +1,1709 @@
+@charset "UTF-8";
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f7f9fc;
+
+    color: #333;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.layout {
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 250px;
+    min-width: 250px;
+
+    height: 100vh;
+
+    background: #0b1f4b;
+
+    color: #cfd8ef;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   SIDEBAR BRAND
+   ========================================================= */
+
+.sidebar-brand {
+    width: 100%;
+
+    min-height: 55px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 20px 24px;
+
+    overflow: hidden;
+}
+
+
+.brand-icon {
+    width: 30px;
+    min-width: 30px;
+
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+
+    font-size: 25px;
+
+    flex-shrink: 0;
+}
+
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    min-width: 0;
+
+    line-height: 1.2;
+}
+
+
+.brand-title {
+    margin: 0;
+
+    color: #fff;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+    white-space: nowrap;
+}
+
+
+.brand-subtitle {
+    margin: 3px 0 0;
+
+    color: #93a2cf;
+
+    font-size: 10px;
+
+    letter-spacing: 0.4px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SIDEBAR NAV
+   ========================================================= */
+
+.sidebar-nav {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    padding: 0 12px;
+
+    flex: 1;
+}
+
+
+.sidebar a,
+.sidebar a:hover,
+.sidebar a:focus,
+.sidebar a:active {
+    text-decoration: none !important;
+
+    border: none !important;
+
+    box-shadow: none !important;
+}
+
+
+.nav-link {
+    width: 100%;
+
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 10px 14px;
+
+    border-radius: 8px;
+
+    color: #b9c4e6;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+}
+
+
+.nav-link i {
+    width: 18px;
+    min-width: 18px;
+
+    text-align: center;
+
+    font-size: 16px;
+}
+
+
+.nav-link:hover,
+.nav-link.active {
+    background: #2f6bff;
+
+    color: #fff;
+}
+
+
+/* =========================================================
+   SIDEBAR FOOTER
+   ========================================================= */
+
+.sidebar-footer {
+    width: 100%;
+
+    padding: 12px;
+
+    margin-top: 8px;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+
+.logout-link {
+    color: #ff8a8a !important;
+}
+
+
+.logout-link:hover {
+    background: #dc2626 !important;
+
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.topbar {
+    width: 100%;
+
+    height: 70px;
+    min-height: 70px;
+
+    background: #fff;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e7eaf3;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 900;
+}
+
+
+.topbar-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-width: 0;
+}
+
+
+.icon-btn {
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 7px;
+
+    color: #475467;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+
+.icon-btn:hover {
+    background: #f2f4f9;
+}
+
+
+.page-title {
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.topbar-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+.notification-btn {
+    position: relative;
+}
+
+
+.notification-btn .badge {
+    position: absolute;
+
+    top: -2px;
+    right: -2px;
+
+    background: #ff4d4f;
+
+    color: #fff;
+
+    font-size: 10px;
+
+    padding: 1px 5px;
+
+    border-radius: 999px;
+}
+
+
+.profile-chip {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #2f6bff;
+
+    color: #fff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.profile-text {
+    display: flex;
+
+    flex-direction: column;
+
+    line-height: 1.2;
+}
+
+
+.profile-name {
+    color: #101828;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.profile-role {
+    margin-top: 3px;
+
+    color: #667085;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   TRANSACTION PAGE
+   ========================================================= */
+
+.transaction-page {
+    width: 100%;
+
+    padding: 25px 30px 35px;
+}
+
+
+.transaction-page-title {
+    margin: 0 0 20px;
+
+    color: #172033;
+
+    font-size: 26px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   TRANSACTION CONTAINER
+   ========================================================= */
+
+.transaction-container {
+    width: 100%;
+
+    background: #fff;
+
+    border: 1px solid #e1e5ea;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+.transaction-tabs {
+    width: 100%;
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: stretch;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+.transaction-tab {
+    position: relative;
+
+    min-width: 150px;
+
+    height: 70px;
+
+    padding: 0 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    border: none;
+
+    background: transparent;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.transaction-tab:hover {
+    background: #f8fafc;
+}
+
+
+.transaction-tab i {
+    width: 20px;
+
+    text-align: center;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   TAB COLORS
+   ========================================================= */
+
+.deposit-tab {
+    color: #1769df;
+}
+
+
+.deposit-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #1769df;
+}
+
+
+.withdraw-tab {
+    color: #168c43;
+}
+
+
+.withdraw-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #168c43;
+}
+
+
+.transfer-tab {
+    color: #7c3aed;
+}
+
+
+.transfer-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #7c3aed;
+}
+
+
+.history-tab {
+    color: #ea8a23;
+}
+
+
+.history-tab.active {
+    color: #ea8a23;
+
+    font-weight: 500;
+}
+
+
+.history-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #ea8a23;
+}
+
+
+/* =========================================================
+   HISTORY CONTENT
+   ========================================================= */
+
+.history-content {
+    width: 100%;
+
+    padding: 28px 36px 35px;
+}
+
+
+/* =========================================================
+   SEARCH SECTION
+   ========================================================= */
+
+.history-search-section {
+    width: 100%;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 22px;
+}
+
+
+.history-heading {
+    min-width: 280px;
+}
+
+
+.history-heading h2 {
+    margin: 0 0 6px;
+
+    color: #ea8a23;
+
+    font-size: 18px;
+
+    font-weight: 500;
+}
+
+
+.history-heading p {
+    margin: 0;
+
+    color: #667085;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   SEARCH BOX
+   ========================================================= */
+
+.history-search-box {
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 10px;
+
+    flex: 1;
+
+    justify-content: flex-end;
+}
+
+
+.history-search-box label {
+    display: none;
+}
+
+
+.history-search-box input {
+    width: 260px;
+
+    height: 43px;
+
+    padding: 0 13px;
+
+    border: 1px solid #d5d9df;
+
+    border-radius: 5px;
+
+    outline: none;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+}
+
+
+.history-search-box input::placeholder {
+    color: #999;
+}
+
+
+.history-search-box input:focus {
+    border-color: #ea8a23;
+
+    box-shadow:
+        0 0 0 2px rgba(234,138,35,0.08);
+}
+
+
+/* =========================================================
+   SEARCH BUTTON
+   ========================================================= */
+
+.search-button,
+.all-button {
+    height: 43px;
+
+    padding: 0 16px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+
+.search-button {
+    background: #ea8a23;
+
+    color: #fff;
+}
+
+
+.search-button:hover {
+    background: #d97706;
+}
+
+
+.all-button {
+    background: #f1f5f9;
+
+    color: #344054;
+
+    border: 1px solid #d9dee7;
+}
+
+
+.all-button:hover {
+    background: #e2e8f0;
+}
+
+
+/* =========================================================
+   CUSTOMER HISTORY CARD
+   ========================================================= */
+
+.customer-history-card {
+    width: 100%;
+
+    background: #f8fafc;
+
+    border: 1px solid #e1e5ea;
+
+    border-radius: 7px;
+
+    overflow: hidden;
+
+    margin-bottom: 25px;
+}
+
+
+.customer-history-title {
+    min-height: 48px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border-bottom: 1px solid #e1e5ea;
+
+    color: #333;
+
+    font-size: 15px;
+
+    font-weight: 500;
+}
+
+
+.customer-history-title i {
+    color: #ea8a23;
+
+    font-size: 16px;
+}
+
+
+.customer-history-details {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+}
+
+
+.customer-info-item {
+    min-height: 65px;
+
+    padding: 12px 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    border-right: 1px solid #e1e5ea;
+}
+
+
+.customer-info-item:last-child {
+    border-right: none;
+}
+
+
+.customer-info-item span {
+    color: #667085;
+
+    font-size: 12px;
+}
+
+
+.customer-info-item strong {
+    color: #344054;
+
+    font-size: 14px;
+
+    font-weight: 500;
+}
+
+
+.customer-info-item strong.balance {
+    color: #168c43;
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.history-message {
+    width: 100%;
+
+    margin-bottom: 18px;
+
+    padding: 12px 15px;
+
+    border-radius: 5px;
+
+    font-size: 14px;
+}
+
+
+.history-message.success {
+    background: #ecfdf3;
+
+    color: #168c43;
+
+    border: 1px solid #b7ebc6;
+}
+
+
+.history-message.error {
+    background: #fff1f2;
+
+    color: #dc2626;
+
+    border: 1px solid #fecdd3;
+}
+
+
+/* =========================================================
+   TABLE SECTION
+   ========================================================= */
+
+.history-table-section {
+    width: 100%;
+}
+
+
+.history-table-header {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+
+.history-table-header h2 {
+    margin: 0 0 4px;
+
+    color: #333;
+
+    font-size: 17px;
+
+    font-weight: 500;
+}
+
+
+.history-table-header span {
+    color: #667085;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #e1e5ea;
+
+    border-radius: 7px;
+}
+
+
+/* =========================================================
+   TRANSACTION TABLE
+   ========================================================= */
+
+.transaction-table {
+    width: 100%;
+
+    min-width: 1000px;
+
+    border-collapse: collapse;
+
+    background: #fff;
+}
+
+
+.transaction-table thead {
+    background: #f8fafc;
+}
+
+
+.transaction-table th {
+    height: 48px;
+
+    padding: 0 14px;
+
+    color: #475467;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e1e5ea;
+}
+
+
+.transaction-table td {
+    height: 55px;
+
+    padding: 0 14px;
+
+    color: #344054;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #edf0f3;
+}
+
+
+.transaction-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+
+.transaction-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   TRANSACTION TYPE
+   ========================================================= */
+
+.transaction-type {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+.transaction-type.deposit {
+    color: #1769df;
+}
+
+
+.transaction-type.withdraw {
+    color: #168c43;
+}
+
+
+.transaction-type.transfer {
+    color: #7c3aed;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.transaction-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 500;
+}
+
+
+.transaction-status.success {
+    background: #ecfdf3;
+
+    color: #168c43;
+}
+
+
+.transaction-status.pending {
+    background: #fff7ed;
+
+    color: #ea8a23;
+}
+
+
+.transaction-status.failed {
+    background: #fff1f2;
+
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   AMOUNT
+   ========================================================= */
+
+.amount-positive {
+    color: #168c43 !important;
+
+    font-weight: 500;
+}
+
+
+.amount-negative {
+    color: #dc2626 !important;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-row td {
+    height: 220px;
+
+    text-align: center;
+}
+
+
+.empty-state {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.empty-state i {
+    color: #cbd5e1;
+
+    font-size: 35px;
+
+    margin-bottom: 12px;
+}
+
+
+.empty-state p {
+    margin: 0 0 5px;
+
+    color: #475467;
+
+    font-size: 14px;
+}
+
+
+.empty-state span {
+    color: #98a2b3;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.main-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+.main-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+
+.main-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   TRANSACTION HISTORY PAGINATION
+   ========================================================= */
+
+#pagination {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    margin-top: 18px;
+
+    margin-bottom: 5px;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   PREVIOUS / NEXT BUTTONS
+   ========================================================= */
+
+#pagination button {
+    min-width: 82px;
+
+    height: 36px;
+
+    padding: 0 14px;
+
+    background: #0d6efd;
+
+    color: #ffffff;
+
+    border: 1px solid #0d6efd;
+
+    border-radius: 6px;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    transition: all 0.2s ease;
+}
+
+
+#pagination button i {
+    font-size: 11px;
+}
+
+
+#pagination button:hover:not(:disabled) {
+    background: #0b5ed7;
+
+    border-color: #0b5ed7;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+#pagination button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   DISABLED PAGINATION BUTTON
+   ========================================================= */
+
+#pagination button:disabled {
+    background: #d9dee7;
+
+    border-color: #d9dee7;
+
+    color: #777;
+
+    cursor: not-allowed;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   PAGE INFORMATION
+   ========================================================= */
+
+#pageInfo {
+    min-width: 85px;
+
+    text-align: center;
+
+    color: #555;
+
+    font-size: 13px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   OPTIONAL PAGE NUMBERS
+   ========================================================= */
+
+.pagination-numbers {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+}
+
+
+.pagination-number {
+    width: 36px;
+
+    height: 36px;
+
+    padding: 0;
+
+    border: 1px solid #d9dee7;
+
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: all 0.2s ease;
+}
+
+
+.pagination-number:hover:not(.active) {
+    background: #eaf2ff;
+
+    border-color: #0d6efd;
+
+    color: #0d6efd;
+}
+
+
+.pagination-number.active {
+    background: #0d6efd;
+
+    border-color: #0d6efd;
+
+    color: #ffffff;
+
+    font-weight: 600;
+
+    cursor: default;
+
+    box-shadow: 0 2px 5px rgba(13, 110, 253, 0.20);
+}
+
+
+.pagination-ellipsis {
+    width: 25px;
+
+    height: 36px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #667085;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TRANSACTION COUNT
+   ========================================================= */
+
+#transactionCount {
+    font-size: 13px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   RESPONSIVE - 1100px
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .history-search-section {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .history-search-box {
+        justify-content: flex-start;
+    }
+
+
+    .customer-history-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .customer-info-item:nth-child(2) {
+        border-right: none;
+    }
+
+
+    #pagination {
+        justify-content: flex-end;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 900px
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .topbar {
+        padding: 0 20px;
+    }
+
+
+    .transaction-page {
+        padding: 22px;
+    }
+
+
+    .history-content {
+        padding: 25px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 800px
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 76px;
+
+        min-width: 76px;
+    }
+
+
+    .sidebar .brand-text,
+    .sidebar .nav-link span {
+        display: none;
+    }
+
+
+    .sidebar-brand {
+        justify-content: center;
+
+        padding-left: 0;
+
+        padding-right: 0;
+    }
+
+
+    .sidebar-nav {
+        padding-left: 10px;
+
+        padding-right: 10px;
+    }
+
+
+    .main-content {
+        margin-left: 76px;
+
+        width: calc(100% - 76px);
+    }
+
+
+    .profile-text {
+        display: none;
+    }
+
+
+    .history-search-box {
+        flex-wrap: wrap;
+    }
+
+
+    .history-search-box input {
+        flex: 1;
+
+        min-width: 220px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 600px
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        width: 0;
+
+        min-width: 0;
+
+        padding: 0;
+
+        overflow: hidden;
+    }
+
+
+    .main-content {
+        margin-left: 0;
+
+        width: 100%;
+    }
+
+
+    .topbar {
+        height: 60px;
+
+        min-height: 60px;
+
+        padding: 0 15px;
+    }
+
+
+    .transaction-page {
+        padding: 15px;
+    }
+
+
+    .transaction-page-title {
+        font-size: 22px;
+    }
+
+
+    .transaction-tabs {
+        height: 60px;
+
+        overflow-x: auto;
+    }
+
+
+    .transaction-tab {
+        height: 60px;
+
+        min-width: 120px;
+
+        padding: 0 15px;
+
+        font-size: 13px;
+    }
+
+
+    .history-content {
+        padding: 20px;
+    }
+
+
+    .history-search-box {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .history-search-box input {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    .search-button,
+    .all-button {
+        width: 100%;
+    }
+
+
+    .customer-history-details {
+        grid-template-columns: 1fr;
+    }
+
+
+    .customer-info-item {
+        border-right: none;
+
+        border-bottom: 1px solid #e1e5ea;
+    }
+
+
+    .customer-info-item:last-child {
+        border-bottom: none;
+    }
+
+
+    /* =====================================================
+       MOBILE PAGINATION
+       ===================================================== */
+
+    #pagination {
+        width: 100%;
+
+        justify-content: flex-end;
+
+        gap: 5px;
+
+        margin-top: 15px;
+    }
+
+
+    #pagination button {
+        min-width: 72px;
+
+        height: 34px;
+
+        padding: 0 10px;
+
+        font-size: 12px;
+    }
+
+
+    #pageInfo {
+        min-width: 70px;
+
+        font-size: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    #pagination {
+        gap: 4px;
+    }
+
+
+    #pagination button {
+        min-width: 65px;
+
+        padding: 0 8px;
+    }
+
+
+    #pageInfo {
+        min-width: 60px;
+
+        font-size: 11px;
+    }
+
+}

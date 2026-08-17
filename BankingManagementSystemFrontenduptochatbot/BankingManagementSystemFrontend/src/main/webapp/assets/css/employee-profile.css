@@ -1,0 +1,874 @@
+/* ============================================================
+   EMPLOYEE PROFILE PAGE
+   ============================================================
+   IMPORTANT:
+   - This file ONLY styles Employee Profile content.
+   - DO NOT style sidebar here.
+   - DO NOT style navbar here.
+   - DO NOT add margin-left for sidebar here.
+   - DO NOT add position/fixed layout for the page.
+   - Sidebar + Navbar are controlled by empDashboard.css
+   ============================================================ */
+
+
+/* ============================================================
+   PROFILE CONTENT
+   ============================================================ */
+
+.employee-profile-page {
+    width: 100%;
+    padding: 30px 32px 50px;
+    background: #f5f7fb;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+
+.employee-profile-page .profile-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.employee-profile-page .profile-page-header h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #101828;
+}
+
+.employee-profile-page .profile-page-header p {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: #667085;
+}
+
+.employee-profile-page .profile-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    color: #98a2b3;
+}
+
+.employee-profile-page .profile-breadcrumb strong {
+    color: #344054;
+}
+
+
+/* ============================================================
+   PROFILE HEADER CARD
+   ============================================================ */
+
+.employee-profile-page .profile-header-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    width: 100%;
+
+    background: linear-gradient(
+        120deg,
+        #eef5ff,
+        #ffffff
+    );
+
+    border: 1px solid #dbe7fa;
+    border-radius: 16px;
+
+    padding: 28px 32px;
+    margin-bottom: 24px;
+
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   PROFILE PHOTO
+   ============================================================ */
+
+.employee-profile-page .profile-photo-section {
+    width: 170px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.employee-profile-page .profile-photo-wrapper {
+    width: 125px;
+    height: 125px;
+
+    margin: 0 auto 14px;
+    padding: 4px;
+
+    border-radius: 50%;
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 20px rgba(15, 35, 70, 0.12);
+
+    box-sizing: border-box;
+}
+
+.employee-profile-page .profile-photo-wrapper img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+/* ============================================================
+   CHANGE PHOTO BUTTON
+   ============================================================ */
+
+.employee-profile-page .change-photo-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 9px 14px;
+
+    border: 1px solid #2563eb;
+    border-radius: 7px;
+
+    background: #ffffff;
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.employee-profile-page .change-photo-btn:hover {
+    background: #eff6ff;
+}
+
+
+/* ============================================================
+   BASIC EMPLOYEE INFORMATION
+   ============================================================ */
+
+.employee-profile-page .profile-basic-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.employee-profile-page .profile-basic-info h2 {
+    margin: 0 0 10px;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #101828;
+}
+
+.employee-profile-page .employee-id {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    background: #e8f1ff;
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    margin-bottom: 12px;
+}
+
+.employee-profile-page .profile-basic-row {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+    margin-top: 9px;
+
+    font-size: 14px;
+    color: #475467;
+}
+
+.employee-profile-page .active-dot {
+    width: 9px;
+    height: 9px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    background: #17b26a;
+}
+
+
+/* ============================================================
+   PROFILE GRID
+   ============================================================ */
+
+.employee-profile-page .profile-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+
+/* ============================================================
+   PROFILE CARD
+   ============================================================ */
+
+.employee-profile-page .profile-card {
+    min-width: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #eaecf0;
+    border-radius: 14px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 2px 8px rgba(16, 24, 40, 0.04);
+
+    box-sizing: border-box;
+}
+
+.employee-profile-page .profile-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+.employee-profile-page .card-title-area {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.employee-profile-page .card-title-area h3 {
+    margin: 0;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #101828;
+}
+
+.employee-profile-page .card-title-area p {
+    margin: 4px 0 0;
+
+    font-size: 11px;
+    color: #98a2b3;
+}
+
+
+/* ============================================================
+   CARD ICON
+   ============================================================ */
+
+.employee-profile-page .card-icon {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    font-size: 17px;
+}
+
+.employee-profile-page .card-icon.blue {
+    background: #eef4ff;
+}
+
+.employee-profile-page .card-icon.green {
+    background: #ecfdf3;
+}
+
+.employee-profile-page .card-icon.purple {
+    background: #f4f3ff;
+}
+
+
+/* ============================================================
+   EDIT BUTTON
+   ============================================================ */
+
+.employee-profile-page .edit-btn {
+    flex-shrink: 0;
+
+    border: 1px solid #2563eb;
+
+    background: #ffffff;
+    color: #2563eb;
+
+    padding: 7px 11px;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.employee-profile-page .edit-btn:hover {
+    background: #eff6ff;
+}
+
+
+/* ============================================================
+   PROFILE DETAILS
+   ============================================================ */
+
+.employee-profile-page .profile-details {
+    width: 100%;
+}
+
+.employee-profile-page .detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.employee-profile-page .detail-item:last-child {
+    border-bottom: none;
+}
+
+.employee-profile-page .detail-label {
+    font-size: 12px;
+    color: #667085;
+}
+
+.employee-profile-page .detail-value {
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #101828;
+
+    text-align: right;
+
+    word-break: break-word;
+}
+
+.employee-profile-page .status-active {
+    color: #16a34a;
+}
+
+
+/* ============================================================
+   PROFILE MODAL OVERLAY
+   ============================================================ */
+
+#editProfileModal.profile-modal-overlay,
+#photoModal.profile-modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    z-index: 5000;
+
+    box-sizing: border-box;
+}
+
+#editProfileModal.profile-modal-overlay.active,
+#photoModal.profile-modal-overlay.active {
+    display: flex;
+}
+
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+
+#editProfileModal .profile-modal,
+#photoModal .profile-modal {
+    width: 100%;
+    max-width: 480px;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.20);
+
+    animation: employeeProfileModalOpen 0.2s ease;
+
+    box-sizing: border-box;
+}
+
+#photoModal .photo-modal {
+    max-width: 430px;
+}
+
+
+/* ============================================================
+   MODAL ANIMATION
+   ============================================================ */
+
+@keyframes employeeProfileModalOpen {
+
+    from {
+        opacity: 0;
+        transform: translateY(-15px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* ============================================================
+   MODAL HEADER
+   ============================================================ */
+
+#editProfileModal .modal-header,
+#photoModal .modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 22px 24px;
+
+    border-bottom: 1px solid #eaecf0;
+}
+
+#editProfileModal .modal-header h2,
+#photoModal .modal-header h2 {
+    margin: 0;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #101828;
+}
+
+#editProfileModal .modal-header p,
+#photoModal .modal-header p {
+    margin: 5px 0 0;
+
+    font-size: 12px;
+    color: #667085;
+}
+
+
+/* ============================================================
+   MODAL CLOSE
+   ============================================================ */
+
+#editProfileModal .modal-close,
+#photoModal .modal-close {
+    width: auto;
+    height: auto;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 25px;
+    line-height: 1;
+
+    color: #667085;
+
+    cursor: pointer;
+}
+
+#editProfileModal .modal-close:hover,
+#photoModal .modal-close:hover {
+    color: #101828;
+}
+
+
+/* ============================================================
+   EDIT FORM
+   ============================================================ */
+
+#editProfileModal #editProfileForm {
+    padding: 22px 24px;
+}
+
+#editProfileModal .form-group {
+    margin-bottom: 17px;
+}
+
+#editProfileModal .form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    color: #344054;
+}
+
+#editProfileModal .form-group input {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 12px;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    color: #101828;
+    background: #ffffff;
+
+    box-sizing: border-box;
+}
+
+#editProfileModal .form-group input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* ============================================================
+   SECURITY NOTE
+   ============================================================ */
+
+#editProfileModal .profile-security-note {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    padding: 11px 12px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 7px;
+
+    margin-top: 5px;
+}
+
+#editProfileModal .profile-security-note p {
+    margin: 0;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    color: #667085;
+}
+
+
+/* ============================================================
+   MODAL ACTIONS
+   ============================================================ */
+
+#editProfileModal .modal-actions,
+#photoModal .modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding: 17px 24px;
+
+    border-top: 1px solid #eaecf0;
+}
+
+
+/* ============================================================
+   CANCEL BUTTON
+   ============================================================ */
+
+#editProfileModal .cancel-btn,
+#photoModal .cancel-btn {
+    padding: 10px 17px;
+
+    border: 1px solid #d0d5dd;
+
+    background: #ffffff;
+    color: #475467;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+#editProfileModal .cancel-btn:hover,
+#photoModal .cancel-btn:hover {
+    background: #f8fafc;
+}
+
+
+/* ============================================================
+   SAVE BUTTON
+   ============================================================ */
+
+#editProfileModal .save-btn,
+#photoModal .save-btn {
+    padding: 10px 17px;
+
+    border: none;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+#editProfileModal .save-btn:hover,
+#photoModal .save-btn:hover {
+    background: #1d4ed8;
+}
+
+#editProfileModal .save-btn:disabled,
+#photoModal .save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   PHOTO UPLOAD
+   ============================================================ */
+
+#photoModal .photo-upload-area {
+    padding: 25px;
+    text-align: center;
+}
+
+#photoModal .photo-preview-wrapper {
+    width: 125px;
+    height: 125px;
+
+    margin: 0 auto 20px;
+
+    padding: 4px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 20px rgba(15, 35, 70, 0.12);
+
+    box-sizing: border-box;
+}
+
+#photoModal .photo-preview-wrapper img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+}
+
+#photoModal .choose-photo-btn {
+    display: inline-block;
+
+    padding: 10px 17px;
+
+    border: 1px solid #2563eb;
+    border-radius: 7px;
+
+    color: #2563eb;
+    background: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+#photoModal .choose-photo-btn:hover {
+    background: #eff6ff;
+}
+
+#photoModal .photo-info {
+    margin: 12px 0 0;
+
+    font-size: 11px;
+    line-height: 1.6;
+
+    color: #98a2b3;
+}
+
+#photoModal .photo-error {
+    min-height: 15px;
+
+    margin: 8px 0 0;
+
+    font-size: 11px;
+
+    color: #dc2626;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1200px) {
+
+    .employee-profile-page .profile-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .employee-profile-page {
+        padding: 20px;
+    }
+
+    .employee-profile-page .profile-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .employee-profile-page .profile-header-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .employee-profile-page .profile-basic-row {
+        justify-content: center;
+    }
+
+    .employee-profile-page .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .employee-profile-page {
+        padding: 16px;
+    }
+
+    .employee-profile-page .profile-header-card {
+        padding: 22px 18px;
+    }
+
+    .employee-profile-page .profile-page-header h1 {
+        font-size: 23px;
+    }
+
+    .employee-profile-page .profile-card {
+        padding: 18px;
+    }
+
+    .employee-profile-page .profile-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .employee-profile-page .edit-btn {
+        align-self: flex-end;
+    }
+
+    .employee-profile-page .detail-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .employee-profile-page .detail-value {
+        text-align: left;
+    }
+
+    #editProfileModal .profile-modal,
+    #photoModal .profile-modal {
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+    }
+
+    #editProfileModal .modal-header,
+    #photoModal .modal-header {
+        padding: 18px;
+    }
+
+    #editProfileModal #editProfileForm {
+        padding: 18px;
+    }
+
+    #editProfileModal .modal-actions,
+    #photoModal .modal-actions {
+        padding: 15px 18px;
+    }
+
+}

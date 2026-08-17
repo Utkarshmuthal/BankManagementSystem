@@ -1,0 +1,1076 @@
+@charset "UTF-8";
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #f4f6fb;
+    color: #1e2433;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   FIXED - DOES NOT SCROLL
+========================================================= */
+
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    height: 100vh;
+
+    background: #0b1f4b;
+    color: #cfd8ef;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px 0;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 1000;
+
+    transition: width 0.2s ease;
+}
+
+
+/* Sidebar Scrollbar */
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   COLLAPSED SIDEBAR
+========================================================= */
+
+.sidebar.collapsed {
+    width: 76px;
+    min-width: 76px;
+}
+
+.sidebar.collapsed .brand-text,
+.sidebar.collapsed .nav-link span {
+    display: none;
+}
+
+
+/* =========================================================
+   SIDEBAR BRAND
+========================================================= */
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 20px 24px;
+}
+
+.brand-icon {
+    font-size: 26px;
+    color: #ffffff;
+    min-width: 26px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.brand-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.brand-subtitle {
+    font-size: 10px;
+    color: #93a2cf;
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+========================================================= */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+    padding: 0 12px;
+
+    flex: 1;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 11px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    color: #b9c4e6;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+.nav-link i {
+    width: 18px;
+    min-width: 18px;
+    text-align: center;
+}
+
+.nav-link:hover {
+    background: #2f6bff;
+    color: #ffffff;
+}
+
+.nav-link.active {
+    background: #2f6bff;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   SIDEBAR FOOTER
+========================================================= */
+
+.sidebar-footer {
+    padding: 12px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    margin-top: 8px;
+}
+
+.logout-link {
+    color: #ff8a8a;
+}
+.logout-link:hover {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    transition:
+        margin-left 0.2s ease,
+        width 0.2s ease;
+}
+
+
+/* Collapsed Sidebar */
+
+.sidebar.collapsed ~ .main-content {
+    margin-left: 76px;
+    width: calc(100% - 76px);
+}
+
+
+/* Main Scrollbar */
+
+.main-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.main-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+
+/* =========================================================
+   TOPBAR / NAVBAR
+========================================================= */
+
+.topbar {
+    width: 100%;
+    min-height: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: #ffffff;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e7eaf3;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 100;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #101828;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+
+    font-size: 18px;
+
+    color: #475467;
+
+    cursor: pointer;
+
+    position: relative;
+
+    padding: 6px;
+
+    border-radius: 8px;
+}
+
+.icon-btn:hover {
+    background: #f2f4f9;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.notification-btn .badge {
+    position: absolute;
+
+    top: -2px;
+    right: -2px;
+
+    background: #ff4d4f;
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    padding: 1px 5px;
+
+    border-radius: 999px;
+
+    line-height: 1.4;
+}
+
+.profile-chip {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    cursor: pointer;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #2f6bff;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+
+    font-size: 15px;
+
+    flex-shrink: 0;
+}
+
+.profile-text {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1.2;
+}
+
+.profile-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #101828;
+}
+
+.profile-role {
+    font-size: 12px;
+    color: #667085;
+}
+
+
+/* =========================================================
+   CUSTOMER DETAILS PAGE
+   ONLY MIDDLE CONTENT
+========================================================= */
+
+.customer-details-page {
+    padding: 20px 22px 30px;
+
+    min-height: calc(100vh - 70px);
+
+    background: #f4f6fb;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.details-header {
+    margin-bottom: 18px;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-btn {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+
+    border: 1px solid #2563eb;
+
+    background: #ffffff;
+    color: #2563eb;
+
+    padding: 7px 12px;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.back-btn i {
+    margin-right: 6px;
+    font-size: 10px;
+}
+
+.back-btn:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.title-section {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.title-icon {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 8px;
+
+    background: #eaf2ff;
+    color: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+}
+
+.title-section h1 {
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #172033;
+
+    margin-bottom: 3px;
+}
+
+.title-section p {
+    font-size: 11px;
+    color: #718096;
+}
+
+
+/* =========================================================
+   DETAILS GRID
+========================================================= */
+
+.customer-details-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   DETAILS CARD
+========================================================= */
+
+.details-card {
+    background: #ffffff;
+
+    border: 1px solid #dfe5ef;
+
+    border-radius: 7px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 2px 7px rgba(0, 0, 0, 0.035);
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.card-header {
+    min-height: 50px;
+
+    padding: 9px 14px;
+
+    border-bottom: 1px solid #e8ecf3;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+.card-header-icon {
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+
+    flex-shrink: 0;
+}
+
+
+/* Customer */
+
+.customer-icon {
+    background: #eaf2ff;
+    color: #2563eb;
+}
+
+
+/* Account */
+
+.account-icon {
+    background: #e9f9f0;
+    color: #159447;
+}
+
+
+/* KYC */
+
+.kyc-icon {
+    background: #f0eaff;
+    color: #7c3aed;
+}
+
+
+/* Header Text */
+
+.card-header h2 {
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #172033;
+}
+
+.card-header span {
+    display: block;
+
+    font-size: 9px;
+
+    color: #8994a5;
+
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   DETAILS CONTENT
+========================================================= */
+
+.details-content {
+    padding: 0 14px;
+}
+
+
+/* =========================================================
+   DETAIL ROW
+========================================================= */
+
+.detail-row {
+    min-height: 37px;
+
+    display: grid;
+
+    grid-template-columns: 145px 1fr;
+
+    align-items: center;
+
+    border-bottom: 1px solid #edf0f5;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   DETAIL LABEL
+========================================================= */
+
+.detail-label {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: #526075;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.detail-label i {
+    width: 14px;
+
+    color: #64748b;
+
+    font-size: 9px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   DETAIL VALUE
+========================================================= */
+
+.detail-value {
+    color: #26344a;
+
+    font-size: 10.5px;
+
+    font-weight: 500;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   CUSTOMER ID
+========================================================= */
+
+#customerId {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ACCOUNT NUMBER
+========================================================= */
+
+.account-number {
+    color: #2563eb;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   ACCOUNT BALANCE
+========================================================= */
+
+.balance-value {
+    color: #159447;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ACCOUNT TYPE BADGE
+========================================================= */
+
+.account-type-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 9px;
+
+    border-radius: 12px;
+
+    background: #eaf2ff;
+
+    color: #2563eb;
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ACCOUNT STATUS
+========================================================= */
+
+.status-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 9px;
+
+    border-radius: 12px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+
+/* Active */
+
+.status-active {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+
+/* Inactive */
+
+.status-inactive {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   KYC CARD
+   FULL WIDTH
+========================================================= */
+
+.kyc-card {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   KYC CONTENT
+========================================================= */
+
+.kyc-content {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+
+    column-gap: 20px;
+
+    padding-bottom: 0;
+}
+
+.kyc-content .detail-row {
+    grid-template-columns: 120px 1fr;
+}
+
+
+/* =========================================================
+   KYC BADGE
+========================================================= */
+
+.badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 10px;
+
+    border-radius: 12px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+.badge.verified {
+    background: #dcfce7;
+
+    color: #15803d;
+}
+
+
+/* =========================================================
+   STATUS MESSAGE
+========================================================= */
+
+.status-message {
+    grid-column: 1 / -1;
+
+    min-height: 40px;
+
+    margin-top: 2px;
+
+    border: 1px solid #9bc0ff;
+
+    background: #f2f7ff;
+
+    border-radius: 6px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 12px;
+
+    color: #2563eb;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+.status-message-icon {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-container {
+    min-height: 230px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe5ef;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #718096;
+
+    font-size: 11px;
+}
+
+.loader {
+    width: 28px;
+    height: 28px;
+
+    border: 3px solid #e5e7eb;
+
+    border-top-color: #2563eb;
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
+
+    margin-bottom: 9px;
+}
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+.error-message {
+    background: #fff1f2;
+
+    border: 1px solid #fecdd3;
+
+    color: #dc2626;
+
+    border-radius: 7px;
+
+    padding: 14px;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   REMOVE IFSC AND BRANCH
+========================================================= */
+
+#ifscCode,
+#branch {
+    display: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .customer-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kyc-card {
+        grid-column: auto;
+    }
+
+    .status-message {
+        grid-column: auto;
+    }
+
+    .kyc-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 76px;
+        min-width: 76px;
+    }
+
+    .sidebar .brand-text,
+    .sidebar .nav-link span {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 76px;
+        width: calc(100% - 76px);
+    }
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .profile-text {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .customer-details-page {
+        padding: 14px;
+    }
+
+    .title-section h1 {
+        font-size: 18px;
+    }
+
+    .title-section p {
+        font-size: 10px;
+    }
+
+    .detail-row {
+        grid-template-columns: 125px 1fr;
+    }
+
+    .kyc-content .detail-row {
+        grid-template-columns: 125px 1fr;
+    }
+
+    .page-title {
+        font-size: 17px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .customer-details-page {
+        padding: 10px;
+    }
+
+    .detail-row,
+    .kyc-content .detail-row {
+        grid-template-columns: 110px 1fr;
+    }
+
+    .detail-label {
+        font-size: 9px;
+    }
+
+    .detail-value {
+        font-size: 9.5px;
+    }
+}

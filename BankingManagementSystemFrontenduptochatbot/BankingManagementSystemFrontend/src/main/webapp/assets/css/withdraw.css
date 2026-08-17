@@ -1,0 +1,1095 @@
+@charset "UTF-8";
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f9fc;
+    color: #333;
+}
+
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+
+.layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    height: 100vh;
+
+    background: #0b1f4b;
+    color: #cfd8ef;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px 0;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 1000;
+
+    transition: width 0.2s ease;
+}
+
+
+/* Sidebar scrollbar */
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+
+/* Remove sidebar underline */
+
+.sidebar a,
+.sidebar a:link,
+.sidebar a:visited,
+.sidebar a:hover,
+.sidebar a:active,
+.sidebar a:focus {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   COLLAPSED SIDEBAR
+   ========================================================= */
+
+.sidebar.collapsed {
+    width: 76px;
+    min-width: 76px;
+}
+
+.sidebar.collapsed .brand-text,
+.sidebar.collapsed .nav-link span {
+    display: none;
+}
+
+
+/* =========================================================
+   SIDEBAR BRAND
+   ========================================================= */
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 20px 24px;
+}
+
+.brand-icon {
+    font-size: 26px;
+    color: #ffffff;
+    min-width: 26px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.brand-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.brand-subtitle {
+    font-size: 10px;
+    color: #93a2cf;
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+    padding: 0 12px;
+
+    flex: 1;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 11px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    color: #b9c4e6;
+
+    text-decoration: none !important;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+.nav-link i {
+    width: 18px;
+    min-width: 18px;
+    text-align: center;
+}
+
+.nav-link:hover {
+    background: #2f6bff;
+    color: #ffffff;
+}
+
+.nav-link.active {
+    background: #2f6bff;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   SIDEBAR FOOTER
+   ========================================================= */
+
+.sidebar-footer {
+    padding: 12px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    margin-top: 8px;
+}
+
+.logout-link {
+    color: #ff8a8a;
+}
+
+.logout-link:hover {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    transition:
+        margin-left 0.2s ease,
+        width 0.2s ease;
+}
+
+
+/* Collapsed sidebar */
+
+.sidebar.collapsed ~ .main-content {
+    margin-left: 76px;
+    width: calc(100% - 76px);
+}
+
+
+/* Main scrollbar */
+
+.main-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.main-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.topbar {
+    width: 100%;
+    min-height: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #ffffff;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e7eaf3;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 100;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 700 !important;
+    color: #101828;
+}
+
+
+/* Remove navbar underline */
+
+.topbar a,
+.topbar a:hover,
+.topbar a:focus,
+.topbar a:active {
+    text-decoration: none !important;
+}
+
+
+/* Navbar buttons */
+
+.icon-btn {
+    background: none;
+    border: none;
+
+    font-size: 18px;
+
+    color: #475467;
+
+    cursor: pointer;
+
+    position: relative;
+
+    padding: 6px;
+
+    border-radius: 8px;
+}
+
+.icon-btn:hover {
+    background: #f2f4f9;
+}
+
+
+/* Navbar right */
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+/* Notification */
+
+.notification-btn .badge {
+    position: absolute;
+
+    top: -2px;
+    right: -2px;
+
+    background: #ff4d4f;
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    padding: 1px 5px;
+
+    border-radius: 999px;
+
+    line-height: 1.4;
+}
+
+
+/* Profile */
+
+.profile-chip {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    cursor: pointer;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #2f6bff;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+
+    font-size: 15px;
+
+    flex-shrink: 0;
+}
+
+.profile-text {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1.2;
+}
+
+.profile-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #101828;
+}
+
+.profile-role {
+    font-size: 12px;
+    color: #667085;
+}
+
+
+/* =========================================================
+   TRANSACTION PAGE
+   ========================================================= */
+
+.transaction-page {
+    padding: 24px 30px 30px;
+}
+
+
+/* Page title */
+
+.transaction-page-title {
+    margin: 0 0 18px 0;
+
+    font-size: 24px;
+
+    font-weight: 600;
+
+    color: #172033;
+}
+
+
+/* =========================================================
+   TRANSACTION CONTAINER
+   ========================================================= */
+
+.transaction-container {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e5ea;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TRANSACTION TABS
+   ========================================================= */
+
+.transaction-tabs {
+    height: 62px;
+
+    display: flex;
+    align-items: stretch;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* Common tab */
+
+.transaction-tab {
+    position: relative;
+
+    min-width: 145px;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border: none;
+
+    background: transparent;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    text-decoration: none !important;
+}
+
+.transaction-tab:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   DEPOSIT - BLUE
+   ========================================================= */
+
+.deposit-tab {
+    color: #1769df;
+}
+
+.deposit-tab i {
+    color: #1769df;
+}
+
+.deposit-tab.active {
+    color: #1769df;
+}
+
+.deposit-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #1769df;
+}
+
+
+/* =========================================================
+   WITHDRAW - GREEN
+   ========================================================= */
+
+.withdraw-tab {
+    color: #168c43;
+}
+
+.withdraw-tab i {
+    color: #168c43;
+}
+
+.withdraw-tab.active {
+    color: #168c43;
+
+    font-weight: 600;
+}
+
+.withdraw-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #168c43;
+}
+
+
+/* =========================================================
+   TRANSFER - VIOLET
+   ========================================================= */
+
+.transfer-tab {
+    color: #7c3aed;
+}
+
+.transfer-tab i {
+    color: #7c3aed;
+}
+
+.transfer-tab.active {
+    color: #7c3aed;
+}
+
+.transfer-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #7c3aed;
+}
+
+
+/* =========================================================
+   TRANSACTION HISTORY - ORANGE
+   ========================================================= */
+
+.history-tab {
+    color: #ea8a23;
+}
+
+.history-tab i {
+    color: #ea8a23;
+}
+
+.history-tab.active {
+    color: #ea8a23;
+}
+
+.history-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #ea8a23;
+}
+
+
+/* Tab icons */
+
+.transaction-tab i {
+    width: 20px;
+
+    text-align: center;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   WITHDRAW CONTENT
+   ========================================================= */
+
+.withdraw-content {
+    display: grid;
+
+    grid-template-columns:
+        minmax(400px, 1fr)
+        1px
+        minmax(320px, 0.8fr);
+
+    gap: 26px;
+
+    padding: 26px 30px;
+}
+
+
+/* =========================================================
+   WITHDRAW FORM SECTION
+   ========================================================= */
+
+.withdraw-form-section h2,
+.account-section h2 {
+    margin: 0 0 18px;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    color: #168c43;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    display: grid;
+
+    grid-template-columns: 180px 1fr;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 15px;
+}
+
+
+/* Label */
+
+.form-group label {
+    font-size: 14px;
+
+    font-weight: 400;
+
+    color: #222;
+}
+
+
+/* =========================================================
+   FORM ROW
+   ========================================================= */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 180px 1fr;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 15px;
+}
+
+
+/* Labels */
+
+.form-row label {
+    font-size: 14px;
+
+    font-weight: 400;
+
+    color: #222;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.form-group input,
+.form-row input,
+.form-row select {
+    width: 100%;
+
+    height: 40px;
+
+    padding: 0 11px;
+
+    border: 1px solid #d5d9df;
+
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    color: #333;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    outline: none;
+}
+
+
+/* Placeholder */
+
+.form-group input::placeholder,
+.form-row input::placeholder {
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* Focus */
+
+.form-group input:focus,
+.form-row input:focus,
+.form-row select:focus {
+    border-color: #168c43;
+
+    box-shadow:
+        0 0 0 2px rgba(22, 140, 67, 0.08);
+}
+
+
+/* =========================================================
+   ACCOUNT NUMBER
+   ========================================================= */
+
+#accountNumber {
+    font-size: 14px;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   WITHDRAW AMOUNT
+   ========================================================= */
+
+#withdrawAmount {
+    font-size: 14px;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.button-row {
+    margin-left: 196px;
+
+    margin-top: 18px;
+}
+
+.withdraw-button {
+    height: 40px;
+
+    min-width: 180px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background: #16a34a;
+
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+}
+
+.withdraw-button:hover {
+    background: #138a3e;
+}
+
+.withdraw-button i {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   VERTICAL DIVIDER
+   ========================================================= */
+
+.vertical-divider {
+    width: 1px;
+
+    min-height: 280px;
+
+    background: #e5e7eb;
+}
+
+
+/* =========================================================
+   ACCOUNT DETAILS CARD
+   ========================================================= */
+
+.account-details-card {
+    background: #f8fcf9;
+
+    border: 1px solid #dce8df;
+
+    border-radius: 7px;
+
+    overflow: hidden;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   ACCOUNT DETAIL ROW
+   ========================================================= */
+
+.account-detail-row {
+    min-height: 52px;
+
+    padding: 0 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    border-bottom: 1px solid #e2e9e4;
+}
+
+
+/* Last row */
+
+.account-detail-row.last {
+    border-bottom: none;
+}
+
+
+/* Left text */
+
+.account-detail-row span {
+    font-size: 13px;
+
+    font-weight: 400;
+
+    color: #333;
+}
+
+
+/* Right values */
+
+.account-detail-row strong {
+    font-size: 14px;
+
+    font-weight: 500;
+
+    color: #1769df;
+
+    text-align: right;
+}
+
+
+/* Balance */
+
+.account-detail-row strong.balance {
+    color: #168c43;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.withdraw-message {
+    margin: 0 30px 15px;
+
+    padding: 10px 14px;
+
+    border-radius: 5px;
+
+    font-size: 13px;
+
+    font-weight: 400;
+}
+
+.withdraw-message.success {
+    background: #ecfdf3;
+
+    border: 1px solid #bbf7d0;
+
+    color: #15803d;
+}
+
+.withdraw-message.error {
+    background: #fef2f2;
+
+    border: 1px solid #fecaca;
+
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   REMOVE OLD MINIMUM BALANCE / WARNING
+   ========================================================= */
+
+.withdraw-note {
+    display: none !important;
+}
+
+#minimumBalance {
+    display: none !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .withdraw-content {
+        grid-template-columns: 1fr;
+    }
+
+    .vertical-divider {
+        display: none;
+    }
+
+    .account-section {
+        margin-top: 5px;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .main-content {
+        margin-left: 0;
+
+        width: 100%;
+    }
+
+    .transaction-page {
+        padding: 20px;
+    }
+
+    .transaction-tabs {
+        overflow-x: auto;
+    }
+
+    .transaction-tab {
+        min-width: 130px;
+    }
+
+    .withdraw-content {
+        padding: 20px;
+    }
+
+    .form-group,
+    .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 6px;
+    }
+
+    .button-row {
+        margin-left: 0;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .profile-text {
+        display: none;
+    }
+
+    .transaction-page-title {
+        font-size: 21px;
+    }
+
+    .withdraw-content {
+        padding: 18px;
+    }
+
+    .transaction-tab {
+        min-width: 120px;
+
+        padding: 0 14px;
+
+        font-size: 13px;
+    }
+}
