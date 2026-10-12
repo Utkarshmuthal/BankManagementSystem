@@ -176,6 +176,11 @@ public class UserServiceImpl implements UserService {
                         user.getId()
                 );
 
+        Long employeeId =
+                userRepository.findEmployeeIdByUserId(
+                        user.getId()
+                );
+
 
         // =====================================================
         // LOGIN RESPONSE
@@ -187,6 +192,7 @@ public class UserServiceImpl implements UserService {
         response.setUserId(user.getId());
         response.setRole(user.getRole());
         response.setCustomerId(customerId);
+        response.setEmployeeId(employeeId);
 
 
         // =====================================================

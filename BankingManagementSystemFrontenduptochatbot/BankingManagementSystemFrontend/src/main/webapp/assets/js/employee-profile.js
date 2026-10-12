@@ -1,54 +1,31 @@
-/* ============================================================
-   EMPLOYEE PROFILE JAVASCRIPT
-   Bank Management System
-   ============================================================ */
-
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* ========================================================
-       CONFIGURATION
-       ======================================================== */
+    // =========================================================
+    // CONFIGURATION
+    // =========================================================
 
     const BACKEND_PORT = "8082";
+    const API_BASE_URL = `http://localhost:${BACKEND_PORT}/api/employee`;
 
-    const API_BASE_URL =
-        `http://localhost:${BACKEND_PORT}/api/employee`;
 
-    /*
-     * IMPORTANT:
-     * Employee ID must be the employee_id from employee table.
-     *
-     * Example:
-     * employee_id = 5
-     */
+    // =========================================================
+    // GET LOGGED-IN EMPLOYEE ID
+    // =========================================================
 
-    let employeeId =
-        sessionStorage.getItem("employeeId");
-
-    /*
-     * Temporary fallback for testing.
-     *
-     * REMOVE THIS after employeeId is stored during login.
-     */
+    const employeeId = sessionStorage.getItem("employeeId");
 
     if (!employeeId) {
-
-        employeeId = "5";
-
-        console.warn(
-            "employeeId not found in sessionStorage. Using employeeId = 5 for testing."
-        );
+        console.error("Employee ID not found in sessionStorage.");
+        alert("Employee session expired. Please login again.");
+        return;
     }
 
-    console.log(
-        "Employee ID:",
-        employeeId
-    );
+    console.log("Logged-in Employee ID:", employeeId);
 
 
-    /* ========================================================
-       API ENDPOINTS
-       ======================================================== */
+    // =========================================================
+    // API ENDPOINTS
+    // =========================================================
 
     const PROFILE_API =
         `${API_BASE_URL}/profile/${employeeId}`;
@@ -59,23 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const PHOTO_API =
         `${API_BASE_URL}/profile/${employeeId}/photo`;
 
-
-    console.log("Profile API:", PROFILE_API);
-    console.log("Update API:", UPDATE_PROFILE_API);
-    console.log("Photo API:", PHOTO_API);
-
-
-    /* ========================================================
-       DEFAULT IMAGE
-       ======================================================== */
-
-    const DEFAULT_IMAGE =
-        "/BankingManagementSystemFrontend/assets/images/default-profile.png";
+    console.log("Employee Profile API:", PROFILE_API);
+    console.log("Employee Update API:", UPDATE_PROFILE_API);
+    console.log("Employee Photo API:", PHOTO_API);
 
 
-    /* ========================================================
-       DOM ELEMENTS
-       ======================================================== */
+    // =========================================================
+    // DOM ELEMENTS
+    // =========================================================
 
     const profileImage =
         document.getElementById("profileImage");
@@ -96,9 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("employeeStatus");
 
 
-    /* ========================================================
-       PERSONAL INFORMATION ELEMENTS
-       ======================================================== */
+    // Personal Information
 
     const firstName =
         document.getElementById("firstName");
@@ -113,9 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("email");
 
 
-    /* ========================================================
-       EMPLOYMENT INFORMATION
-       ======================================================== */
+    // Employment Information
 
     const employmentEmployeeId =
         document.getElementById("employmentEmployeeId");
@@ -130,9 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("salary");
 
 
-    /* ========================================================
-       ACCOUNT INFORMATION
-       ======================================================== */
+    // Account Information
 
     const userId =
         document.getElementById("userId");
@@ -147,9 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("accountStatus");
 
 
-    /* ========================================================
-       EDIT PROFILE MODAL
-       ======================================================== */
+    // =========================================================
+    // EDIT PROFILE ELEMENTS
+    // =========================================================
 
     const editProfileBtn =
         document.getElementById("editProfileBtn");
@@ -166,11 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const editProfileForm =
         document.getElementById("editProfileForm");
 
-
-    /* ========================================================
-       EDIT FORM INPUTS
-       ======================================================== */
-
     const editFirstName =
         document.getElementById("editFirstName");
 
@@ -184,9 +141,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("saveProfileBtn");
 
 
-    /* ========================================================
-       PHOTO MODAL
-       ======================================================== */
+    // =========================================================
+    // PHOTO ELEMENTS
+    // =========================================================
 
     const changePhotoBtn =
         document.getElementById("changePhotoBtn");
@@ -213,20 +170,16 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("photoError");
 
 
-    /* ========================================================
-       CHECK IMPORTANT ELEMENTS
-       ======================================================== */
+    // =========================================================
+    // CURRENT EMPLOYEE
+    // =========================================================
 
-    console.log("Profile image:", profileImage);
-    console.log("Edit button:", editProfileBtn);
-    console.log("Edit modal:", editProfileModal);
-    console.log("Photo button:", changePhotoBtn);
-    console.log("Photo modal:", photoModal);
+    let currentEmployee = null;
 
 
-    /* ========================================================
-       UTILITY - SET TEXT
-       ======================================================== */
+    // =========================================================
+    // SET TEXT
+    // =========================================================
 
     function setText(element, value) {
 
@@ -239,73 +192,250 @@ document.addEventListener("DOMContentLoaded", function () {
             value === undefined ||
             value === ""
         ) {
-
             element.textContent = "-";
-
         } else {
-
             element.textContent = value;
-
         }
     }
 
 
-    /* ========================================================
-       UTILITY - IMAGE URL
-       ======================================================== */
+    // =========================================================
+    // IMAGE URL
+    // =========================================================
 
     function getImageUrl(imagePath) {
 
+        /*
+         * If there is no image in database,
+         * don't use default-profile.png.
+         */
         if (!imagePath) {
-            return "";
+            return null;
         }
 
-        /*
-         * Already complete URL
-         */
-
+        // Already complete URL
         if (
             imagePath.startsWith("http://") ||
             imagePath.startsWith("https://")
         ) {
-
             return imagePath;
-
         }
 
-
-        /*
-         * Backend returns:
-         *
-         * /uploads/profile/abc.jpg
-         */
-
+        // Backend relative path
         if (imagePath.startsWith("/")) {
-
-            return (
-                `http://localhost:${BACKEND_PORT}` +
-                imagePath
-            );
-
+            return `http://localhost:${BACKEND_PORT}${imagePath}`;
         }
 
-
-        /*
-         * Backend returns:
-         *
-         * uploads/profile/abc.jpg
-         */
-
-        return (
-            `http://localhost:${BACKEND_PORT}/` +
-            imagePath
-        );
+        return `http://localhost:${BACKEND_PORT}/${imagePath}`;
     }
 
 
-    /* ========================================================
-       LOAD EMPLOYEE PROFILE
-       ======================================================== */
+    // =========================================================
+    // DISPLAY EMPLOYEE PROFILE
+    // =========================================================
+
+    function displayEmployeeProfile(employee) {
+
+        if (!employee) {
+            return;
+        }
+
+        console.log("Displaying Employee Profile:", employee);
+
+
+        // =====================================================
+        // FULL NAME
+        // =====================================================
+
+        const fullName =
+            `${employee.firstName || ""} ${employee.lastName || ""}`
+                .trim();
+
+
+        // =====================================================
+        // HEADER
+        // =====================================================
+
+        setText(employeeFullName, fullName);
+
+        setText(
+            employeeIdElement,
+            employee.employeeId
+        );
+
+        setText(
+            employeeDesignation,
+            employee.designation
+        );
+
+        setText(
+            employeeBranch,
+            employee.branch
+        );
+
+        setText(
+            employeeStatus,
+            employee.accountStatus
+        );
+
+
+        // =====================================================
+        // PERSONAL INFORMATION
+        // =====================================================
+
+        setText(
+            firstName,
+            employee.firstName
+        );
+
+        setText(
+            lastName,
+            employee.lastName
+        );
+
+        setText(
+            mobile,
+            employee.mobile
+        );
+
+        setText(
+            email,
+            employee.email
+        );
+
+
+        // =====================================================
+        // EMPLOYMENT INFORMATION
+        // =====================================================
+
+        setText(
+            employmentEmployeeId,
+            employee.employeeId
+        );
+
+        setText(
+            designation,
+            employee.designation
+        );
+
+        setText(
+            branch,
+            employee.branch
+        );
+
+
+        if (
+            employee.salary !== null &&
+            employee.salary !== undefined
+        ) {
+
+            setText(
+                salary,
+                `₹ ${Number(employee.salary).toLocaleString("en-IN")}`
+            );
+
+        } else {
+
+            setText(
+                salary,
+                "-"
+            );
+        }
+
+
+        // =====================================================
+        // ACCOUNT INFORMATION
+        // =====================================================
+
+        setText(
+            userId,
+            employee.userId
+        );
+
+        setText(
+            accountEmail,
+            employee.email
+        );
+
+        setText(
+            role,
+            employee.role
+        );
+
+        setText(
+            accountStatus,
+            employee.accountStatus
+        );
+
+
+        // =====================================================
+        // EMPLOYEE PROFILE IMAGE
+        // =====================================================
+
+        if (
+            employee.profileImage &&
+            profileImage
+        ) {
+
+            const imageUrl =
+                getImageUrl(employee.profileImage);
+
+            const finalImageUrl =
+                `${imageUrl}?t=${Date.now()}`;
+
+            console.log(
+                "Employee Profile Image:",
+                finalImageUrl
+            );
+
+            profileImage.src =
+                finalImageUrl;
+
+
+            // If image cannot be loaded,
+            // don't request default-profile.png.
+            profileImage.onerror = function () {
+
+                console.error(
+                    "Unable to load employee profile image:",
+                    imageUrl
+                );
+
+                this.onerror = null;
+            };
+
+        } else {
+
+            console.log(
+                "Employee has no profile image."
+            );
+
+            /*
+             * Do NOT set default-profile.png.
+             *
+             * Keep existing image if available.
+             */
+        }
+
+
+        // =====================================================
+        // PHOTO PREVIEW
+        // =====================================================
+
+        if (
+            photoPreview &&
+            profileImage
+        ) {
+
+            photoPreview.src =
+                profileImage.src;
+        }
+    }
+
+
+    // =========================================================
+    // LOAD EMPLOYEE PROFILE
+    // =========================================================
 
     async function loadEmployeeProfile() {
 
@@ -318,34 +448,30 @@ document.addEventListener("DOMContentLoaded", function () {
             PROFILE_API
         );
 
-
         try {
 
             const response =
-                await fetch(PROFILE_API, {
+                await fetch(
+                    PROFILE_API,
+                    {
+                        method: "GET",
 
-                    method: "GET",
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        },
 
-                    headers: {
-                        "Accept": "application/json"
+                        credentials: "omit",
+
+                        mode: "cors"
                     }
-
-                });
+                );
 
 
             console.log(
-                "HTTP Status:",
+                "Employee Profile HTTP Status:",
                 response.status
             );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    `HTTP Error ${response.status}`
-                );
-
-            }
 
 
             const result =
@@ -359,6 +485,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             if (
+                !response.ok ||
                 !result.status ||
                 !result.data
             ) {
@@ -367,337 +494,71 @@ document.addEventListener("DOMContentLoaded", function () {
                     result.message ||
                     "Employee profile not found."
                 );
-
             }
 
 
+            currentEmployee =
+                result.data;
+
+
             displayEmployeeProfile(
-                result.data
+                currentEmployee
             );
 
-        }
-        catch (error) {
+
+        } catch (error) {
 
             console.error(
-                "Profile loading error:",
+                "Employee profile loading error:",
                 error
             );
-
-
-            /*
-             * Do not show alert during initial page load.
-             *
-             * This avoids annoying alerts when debugging.
-             */
 
             setText(
                 employeeFullName,
                 "Unable to load"
             );
-
-            setText(
-                employeeDesignation,
-                "-"
-            );
-
-            setText(
-                employeeBranch,
-                "-"
-            );
-
-            setText(
-                employeeStatus,
-                "-"
-            );
-
         }
     }
 
 
-    /* ========================================================
-       DISPLAY EMPLOYEE PROFILE
-       ======================================================== */
-
-    function displayEmployeeProfile(employee) {
-
-        console.log(
-            "Displaying employee:",
-            employee
-        );
-
-
-        /* ====================================================
-           BASIC HEADER
-           ==================================================== */
-
-        const fullName =
-            `${employee.firstName || ""} ${employee.lastName || ""}`
-                .trim();
-
-
-        setText(
-            employeeFullName,
-            fullName
-        );
-
-
-        setText(
-            employeeIdElement,
-            employee.employeeId
-        );
-
-
-        setText(
-            employeeDesignation,
-            employee.designation
-        );
-
-
-        setText(
-            employeeBranch,
-            employee.branch
-        );
-
-
-        setText(
-            employeeStatus,
-            employee.accountStatus
-        );
-
-
-        /* ====================================================
-           PERSONAL INFORMATION
-           ==================================================== */
-
-        setText(
-            firstName,
-            employee.firstName
-        );
-
-
-        setText(
-            lastName,
-            employee.lastName
-        );
-
-
-        setText(
-            mobile,
-            employee.mobile
-        );
-
-
-        setText(
-            email,
-            employee.email
-        );
-
-
-        /* ====================================================
-           EMPLOYMENT INFORMATION
-           ==================================================== */
-
-        setText(
-            employmentEmployeeId,
-            employee.employeeId
-        );
-
-
-        setText(
-            designation,
-            employee.designation
-        );
-
-
-        setText(
-            branch,
-            employee.branch
-        );
-
-
-        setText(
-            salary,
-            employee.salary
-        );
-
-
-        /* ====================================================
-           ACCOUNT INFORMATION
-           ==================================================== */
-
-        setText(
-            userId,
-            employee.userId
-        );
-
-
-        setText(
-            accountEmail,
-            employee.email
-        );
-
-
-        setText(
-            role,
-            employee.role
-        );
-
-
-        setText(
-            accountStatus,
-            employee.accountStatus
-        );
-
-
-        /* ====================================================
-           PROFILE IMAGE
-           ==================================================== */
-
-        if (
-            employee.profileImage &&
-            profileImage
-        ) {
-
-            const imageUrl =
-                getImageUrl(
-                    employee.profileImage
-                );
-
-
-            console.log(
-                "Profile Image URL:",
-                imageUrl
-            );
-
-
-            profileImage.src =
-                imageUrl;
-
-
-            profileImage.onerror =
-                function () {
-
-                    console.error(
-                        "Unable to load profile image:",
-                        imageUrl
-                    );
-
-                    this.src =
-                        DEFAULT_IMAGE;
-                };
-
-        }
-        else {
-
-            console.log(
-                "Employee has no profile image."
-            );
-
-            if (profileImage) {
-
-                profileImage.src =
-                    DEFAULT_IMAGE;
-
-            }
-        }
-
-
-        /*
-         * Also update photo preview
-         */
-
-        if (photoPreview && profileImage) {
-
-            photoPreview.src =
-                profileImage.src;
-
-        }
-    }
-
-
-    /* ========================================================
-       OPEN EDIT PROFILE MODAL
-       ======================================================== */
+    // =========================================================
+    // OPEN EDIT PROFILE
+    // =========================================================
 
     function openEditProfileModal() {
 
-        console.log(
-            "Opening Edit Profile modal..."
-        );
+        if (!currentEmployee) {
 
-
-        /*
-         * Get current values from page
-         */
-
-        const currentFirstName =
-            firstName ?
-            firstName.textContent.trim() :
-            "";
-
-        const currentLastName =
-            lastName ?
-            lastName.textContent.trim() :
-            "";
-
-        const currentMobile =
-            mobile ?
-            mobile.textContent.trim() :
-            "";
-
-
-        /*
-         * Put values into form
-         */
-
-        if (editFirstName) {
-
-            editFirstName.value =
-                currentFirstName === "-" ?
-                "" :
-                currentFirstName;
-        }
-
-
-        if (editLastName) {
-
-            editLastName.value =
-                currentLastName === "-" ?
-                "" :
-                currentLastName;
-        }
-
-
-        if (editMobile) {
-
-            editMobile.value =
-                currentMobile === "-" ?
-                "" :
-                currentMobile;
-        }
-
-
-        /*
-         * Open modal
-         */
-
-        if (editProfileModal) {
-
-            editProfileModal.classList.add(
-                "active"
+            console.error(
+                "Employee profile data not loaded."
             );
 
+            return;
         }
 
+
+        editFirstName.value =
+            currentEmployee.firstName || "";
+
+        editLastName.value =
+            currentEmployee.lastName || "";
+
+        editMobile.value =
+            currentEmployee.mobile || "";
+
+
+        editProfileModal.classList.add(
+            "active"
+        );
 
         document.body.style.overflow =
             "hidden";
     }
 
 
-    /* ========================================================
-       CLOSE EDIT PROFILE MODAL
-       ======================================================== */
+    // =========================================================
+    // CLOSE EDIT PROFILE
+    // =========================================================
 
     function closeEditProfileModal() {
 
@@ -706,7 +567,6 @@ document.addEventListener("DOMContentLoaded", function () {
             editProfileModal.classList.remove(
                 "active"
             );
-
         }
 
         document.body.style.overflow =
@@ -714,23 +574,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* ========================================================
-       EDIT PROFILE BUTTON
-       ======================================================== */
-
     if (editProfileBtn) {
 
         editProfileBtn.addEventListener(
             "click",
             openEditProfileModal
         );
-
     }
 
-
-    /* ========================================================
-       CLOSE EDIT MODAL
-       ======================================================== */
 
     if (closeEditModal) {
 
@@ -738,7 +589,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             closeEditProfileModal
         );
-
     }
 
 
@@ -748,13 +598,12 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             closeEditProfileModal
         );
-
     }
 
 
-    /* ========================================================
-       SAVE / UPDATE PROFILE
-       ======================================================== */
+    // =========================================================
+    // UPDATE EMPLOYEE PROFILE
+    // =========================================================
 
     if (editProfileForm) {
 
@@ -765,39 +614,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 event.preventDefault();
 
                 await updateEmployeeProfile();
-
             }
         );
-
     }
 
 
-    /* ========================================================
-       UPDATE EMPLOYEE PROFILE API
-       ======================================================== */
-
     async function updateEmployeeProfile() {
-
-        console.log(
-            "Updating employee profile..."
-        );
-
-
-        /* ====================================================
-           VALIDATION
-           ==================================================== */
-
-        if (!editFirstName ||
-            !editLastName ||
-            !editMobile) {
-
-            console.error(
-                "Edit form elements not found."
-            );
-
-            return;
-        }
-
 
         const newFirstName =
             editFirstName.value.trim();
@@ -815,8 +637,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Please enter first name."
             );
 
-            editFirstName.focus();
-
             return;
         }
 
@@ -827,27 +647,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Please enter last name."
             );
 
-            editLastName.focus();
-
             return;
         }
 
-
-        if (!newMobile) {
-
-            alert(
-                "Please enter mobile number."
-            );
-
-            editMobile.focus();
-
-            return;
-        }
-
-
-        /*
-         * Mobile validation
-         */
 
         if (!/^[0-9]{10,15}$/.test(newMobile)) {
 
@@ -855,15 +657,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Please enter a valid mobile number."
             );
 
-            editMobile.focus();
-
             return;
         }
 
-
-        /* ====================================================
-           REQUEST BODY
-           ==================================================== */
 
         const requestBody = {
 
@@ -878,16 +674,6 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        console.log(
-            "Update Request Body:",
-            requestBody
-        );
-
-
-        /* ====================================================
-           BUTTON LOADING
-           ==================================================== */
-
         if (saveProfileBtn) {
 
             saveProfileBtn.disabled =
@@ -895,7 +681,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             saveProfileBtn.textContent =
                 "Saving...";
-
         }
 
 
@@ -905,18 +690,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 await fetch(
                     UPDATE_PROFILE_API,
                     {
-
                         method: "PUT",
 
                         headers: {
-
                             "Content-Type":
                                 "application/json",
 
                             "Accept":
                                 "application/json"
-
                         },
+
+                        credentials: "omit",
+
+                        mode: "cors",
 
                         body:
                             JSON.stringify(
@@ -926,20 +712,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-            console.log(
-                "Update HTTP Status:",
-                response.status
-            );
-
-
             const result =
                 await response.json();
-
-
-            console.log(
-                "Update Profile Response:",
-                result
-            );
 
 
             if (
@@ -951,21 +725,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     result.message ||
                     "Unable to update employee profile."
                 );
-
             }
 
 
-            /*
-             * Update UI immediately
-             */
-
-            displayUpdatedEmployeeProfile(
-                result.data ||
-                requestBody
-            );
-
-
             closeEditProfileModal();
+
+            await loadEmployeeProfile();
 
 
             alert(
@@ -973,22 +738,20 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        }
-        catch (error) {
+        } catch (error) {
 
             console.error(
-                "Profile update error:",
+                "Employee profile update error:",
                 error
             );
-
 
             alert(
                 error.message ||
                 "Unable to update employee profile."
             );
 
-        }
-        finally {
+
+        } finally {
 
             if (saveProfileBtn) {
 
@@ -997,158 +760,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 saveProfileBtn.textContent =
                     "Save Changes";
-
             }
         }
     }
 
 
-    /* ========================================================
-       DISPLAY UPDATED PROFILE
-       ======================================================== */
-
-    function displayUpdatedEmployeeProfile(data) {
-
-        console.log(
-            "Updating profile UI:",
-            data
-        );
-
-
-        setText(
-            firstName,
-            data.firstName
-        );
-
-
-        setText(
-            lastName,
-            data.lastName
-        );
-
-
-        setText(
-            mobile,
-            data.mobile
-        );
-
-
-        /*
-         * Update full name
-         */
-
-        const fullName =
-            `${data.firstName || ""} ${data.lastName || ""}`
-                .trim();
-
-
-        setText(
-            employeeFullName,
-            fullName
-        );
-
-
-        /*
-         * Email remains unchanged.
-         */
-
-        /*
-         * If backend returns complete EmployeeResponse,
-         * update other fields as well.
-         */
-
-        if (data.employeeId !== undefined) {
-
-            setText(
-                employeeIdElement,
-                data.employeeId
-            );
-
-            setText(
-                employmentEmployeeId,
-                data.employeeId
-            );
-        }
-
-
-        if (data.designation !== undefined) {
-
-            setText(
-                designation,
-                data.designation
-            );
-
-            setText(
-                employeeDesignation,
-                data.designation
-            );
-        }
-
-
-        if (data.branch !== undefined) {
-
-            setText(
-                branch,
-                data.branch
-            );
-
-            setText(
-                employeeBranch,
-                data.branch
-            );
-        }
-
-
-        if (data.salary !== undefined) {
-
-            setText(
-                salary,
-                data.salary
-            );
-        }
-
-
-        if (data.email !== undefined) {
-
-            setText(
-                email,
-                data.email
-            );
-
-            setText(
-                accountEmail,
-                data.email
-            );
-        }
-
-
-        if (data.role !== undefined) {
-
-            setText(
-                role,
-                data.role
-            );
-        }
-
-
-        if (data.accountStatus !== undefined) {
-
-            setText(
-                accountStatus,
-                data.accountStatus
-            );
-
-            setText(
-                employeeStatus,
-                data.accountStatus
-            );
-        }
-    }
-
-
-    /* ========================================================
-       OPEN PHOTO MODAL
-       ======================================================== */
+    // =========================================================
+    // OPEN PHOTO MODAL
+    // =========================================================
 
     if (changePhotoBtn) {
 
@@ -1156,38 +775,19 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
-                console.log(
-                    "Opening Change Photo modal..."
-                );
-
-
-                /*
-                 * Reset previous error
-                 */
-
                 if (photoError) {
 
                     photoError.textContent =
                         "";
-
                 }
 
-
-                /*
-                 * Reset file input
-                 */
 
                 if (profilePhotoInput) {
 
                     profilePhotoInput.value =
                         "";
-
                 }
 
-
-                /*
-                 * Show current image in preview
-                 */
 
                 if (
                     photoPreview &&
@@ -1196,20 +796,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     photoPreview.src =
                         profileImage.src;
-
                 }
 
-
-                /*
-                 * Open modal
-                 */
 
                 if (photoModal) {
 
                     photoModal.classList.add(
                         "active"
                     );
-
                 }
 
 
@@ -1220,9 +814,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* ========================================================
-       CLOSE PHOTO MODAL
-       ======================================================== */
+    // =========================================================
+    // CLOSE PHOTO MODAL
+    // =========================================================
 
     function closePhotoUploadModal() {
 
@@ -1231,7 +825,6 @@ document.addEventListener("DOMContentLoaded", function () {
             photoModal.classList.remove(
                 "active"
             );
-
         }
 
         document.body.style.overflow =
@@ -1245,7 +838,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             closePhotoUploadModal
         );
-
     }
 
 
@@ -1255,13 +847,12 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             closePhotoUploadModal
         );
-
     }
 
 
-    /* ========================================================
-       PHOTO SELECT
-       ======================================================== */
+    // =========================================================
+    // PHOTO SELECT
+    // =========================================================
 
     if (profilePhotoInput) {
 
@@ -1274,41 +865,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 if (!file) {
-
                     return;
                 }
 
-
-                console.log(
-                    "Selected photo:",
-                    file
-                );
-
-
-                /* =================================================
-                   CLEAR OLD ERROR
-                   ================================================= */
 
                 if (photoError) {
 
                     photoError.textContent =
                         "";
-
                 }
 
 
-                /* =================================================
-                   FILE TYPE VALIDATION
-                   ================================================= */
+                // =================================================
+                // ALLOWED FILE TYPES
+                // =================================================
 
                 const allowedTypes = [
-
                     "image/jpeg",
-
                     "image/jpg",
-
                     "image/png"
-
                 ];
 
 
@@ -1322,41 +897,35 @@ document.addEventListener("DOMContentLoaded", function () {
                         "Please select JPG, JPEG or PNG image."
                     );
 
-                    this.value =
-                        "";
+                    this.value = "";
 
                     return;
                 }
 
 
-                /* =================================================
-                   FILE SIZE VALIDATION
-                   JSP says maximum 2 MB
-                   ================================================= */
+                // =================================================
+                // FILE SIZE
+                // =================================================
 
                 const maxSize =
-                    2 * 1024 * 1024;
+                    5 * 1024 * 1024;
 
 
-                if (
-                    file.size >
-                    maxSize
-                ) {
+                if (file.size > maxSize) {
 
                     showPhotoError(
-                        "Profile photo must be less than 2 MB."
+                        "Profile photo must be less than 5 MB."
                     );
 
-                    this.value =
-                        "";
+                    this.value = "";
 
                     return;
                 }
 
 
-                /* =================================================
-                   PREVIEW IMAGE
-                   ================================================= */
+                // =================================================
+                // PREVIEW
+                // =================================================
 
                 const reader =
                     new FileReader();
@@ -1369,9 +938,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             photoPreview.src =
                                 event.target.result;
-
                         }
-
                     };
 
 
@@ -1382,9 +949,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* ========================================================
-       PHOTO ERROR
-       ======================================================== */
+    // =========================================================
+    // PHOTO ERROR
+    // =========================================================
 
     function showPhotoError(message) {
 
@@ -1392,18 +959,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
             photoError.textContent =
                 message;
-
         }
 
+
         console.error(
+            "PHOTO ERROR:",
             message
         );
     }
 
 
-    /* ========================================================
-       UPLOAD PHOTO
-       ======================================================== */
+    // =========================================================
+    // UPLOAD BUTTON
+    // =========================================================
 
     if (uploadPhotoBtn) {
 
@@ -1411,25 +979,81 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             uploadEmployeePhoto
         );
-
     }
 
 
-    /* ========================================================
-       UPLOAD EMPLOYEE PHOTO API
-       ======================================================== */
+    // =========================================================
+    // UPLOAD EMPLOYEE PHOTO
+    // =========================================================
 
     async function uploadEmployeePhoto() {
 
         console.log(
-            "Uploading employee profile photo..."
+            "======================================"
+        );
+
+        console.log(
+            "EMPLOYEE PHOTO UPLOAD START"
         );
 
 
-        if (!profilePhotoInput) {
+        // =====================================================
+        // CHECK SESSION AGAIN
+        // =====================================================
+
+        const currentEmployeeId =
+            sessionStorage.getItem("employeeId");
+
+
+        console.log(
+            "Session Employee ID:",
+            currentEmployeeId
+        );
+
+
+        if (!currentEmployeeId) {
+
+            showPhotoError(
+                "Employee session expired. Please login again."
+            );
+
+            return;
+        }
+
+
+        if (
+            String(currentEmployeeId) !==
+            String(employeeId)
+        ) {
 
             console.error(
-                "profilePhotoInput not found."
+                "Employee ID mismatch.",
+                {
+                    originalEmployeeId:
+                        employeeId,
+
+                    sessionEmployeeId:
+                        currentEmployeeId
+                }
+            );
+
+
+            showPhotoError(
+                "Invalid employee session."
+            );
+
+            return;
+        }
+
+
+        // =====================================================
+        // FILE CHECK
+        // =====================================================
+
+        if (!profilePhotoInput) {
+
+            showPhotoError(
+                "Photo input not found."
             );
 
             return;
@@ -1439,10 +1063,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const file =
             profilePhotoInput.files[0];
 
-
-        /* ====================================================
-           FILE CHECK
-           ==================================================== */
 
         if (!file) {
 
@@ -1454,18 +1074,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* ====================================================
-           FILE TYPE CHECK
-           ==================================================== */
+        // =====================================================
+        // FILE TYPE
+        // =====================================================
 
         const allowedTypes = [
-
             "image/jpeg",
-
             "image/jpg",
-
             "image/png"
-
         ];
 
 
@@ -1483,47 +1099,31 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* ====================================================
-           FILE SIZE CHECK
-           ==================================================== */
+        // =====================================================
+        // FILE SIZE
+        // =====================================================
 
         const maxSize =
-            2 * 1024 * 1024;
+            5 * 1024 * 1024;
 
 
-        if (
-            file.size >
-            maxSize
-        ) {
+        if (file.size > maxSize) {
 
             showPhotoError(
-                "Profile photo must be less than 2 MB."
+                "Profile photo must be less than 5 MB."
             );
 
             return;
         }
 
 
-        /* ====================================================
-           FORM DATA
-           ==================================================== */
+        // =====================================================
+        // FORM DATA
+        // =====================================================
 
         const formData =
             new FormData();
 
-
-        /*
-         * IMPORTANT:
-         *
-         * This name must match your backend
-         * @RequestParam name.
-         *
-         * If your controller uses:
-         *
-         * @RequestParam("profileImage") MultipartFile file
-         *
-         * keep profileImage.
-         */
 
         formData.append(
             "profileImage",
@@ -1532,14 +1132,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         console.log(
-            "Photo API:",
+            "Employee Photo API:",
             PHOTO_API
         );
 
+        console.log(
+            "Employee ID:",
+            currentEmployeeId
+        );
 
-        /* ====================================================
-           BUTTON LOADING
-           ==================================================== */
+        console.log(
+            "File:",
+            file.name
+        );
+
+        console.log(
+            "File size:",
+            file.size
+        );
+
+
+        // =====================================================
+        // BUTTON
+        // =====================================================
 
         if (uploadPhotoBtn) {
 
@@ -1548,111 +1163,141 @@ document.addEventListener("DOMContentLoaded", function () {
 
             uploadPhotoBtn.textContent =
                 "Uploading...";
-
         }
 
 
         try {
 
+            // =================================================
+            // EMPLOYEE PHOTO API
+            // =================================================
+
             const response =
                 await fetch(
                     PHOTO_API,
                     {
-
                         method: "POST",
 
-                        body:
-                            formData
+                        /*
+                         * DO NOT manually set Content-Type.
+                         * Browser creates multipart boundary.
+                         */
 
+                        body: formData,
+
+                        credentials: "omit",
+
+                        mode: "cors",
+
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
                     }
                 );
 
 
             console.log(
-                "Photo upload HTTP status:",
+                "Employee Photo HTTP Status:",
                 response.status
             );
 
 
-            const result =
-                await response.json();
+            const responseText =
+                await response.text();
 
 
             console.log(
-                "Photo upload response:",
-                result
+                "Raw Server Response:",
+                responseText
             );
 
 
-            if (
-                !response.ok ||
-                !result.status
-            ) {
+            let result;
+
+
+            try {
+
+                result =
+                    JSON.parse(
+                        responseText
+                    );
+
+            } catch (parseError) {
 
                 throw new Error(
-                    result.message ||
-                    "Unable to upload profile photo."
+                    "Server returned an invalid response."
                 );
             }
 
 
-            /* =================================================
-               GET IMAGE PATH
-               ================================================= */
+            console.log(
+                "Employee Photo API Response:",
+                result
+            );
+
+
+            // =================================================
+            // HTTP ERROR
+            // =================================================
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.message ||
+                    `Employee photo upload failed. HTTP ${response.status}`
+                );
+            }
+
+
+            // =================================================
+            // API ERROR
+            // =================================================
+
+            if (!result.status) {
+
+                throw new Error(
+                    result.message ||
+                    "Unable to upload employee photo."
+                );
+            }
+
+
+            // =================================================
+            // GET IMAGE PATH
+            // =================================================
 
             let imagePath = null;
 
 
-            /*
-             * Backend may return:
-             *
-             * data:
-             * "/uploads/profile/abc.jpg"
-             */
-
             if (
-                typeof result.data ===
-                "string"
+                typeof result.data === "string"
             ) {
 
                 imagePath =
                     result.data;
 
-            }
-
-
-            /*
-             * Backend may return:
-             *
-             * data:
-             * {
-             *   profileImage: "/uploads/..."
-             * }
-             */
-
-            else if (
+            } else if (
                 result.data &&
-                typeof result.data ===
-                "object"
+                typeof result.data === "object"
             ) {
 
                 imagePath =
                     result.data.profileImage ||
                     result.data.imagePath ||
                     result.data.profilePhoto;
-
             }
 
 
             console.log(
-                "Returned image path:",
+                "Employee Image Path:",
                 imagePath
             );
 
 
-            /* =================================================
-               UPDATE IMAGE
-               ================================================= */
+            // =================================================
+            // UPDATE IMAGE
+            // =================================================
 
             if (imagePath) {
 
@@ -1662,19 +1307,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
 
-                /*
-                 * Cache buster
-                 *
-                 * Prevent browser from displaying
-                 * an old cached image.
-                 */
-
                 const finalImageUrl =
                     `${imageUrl}?t=${Date.now()}`;
 
 
                 console.log(
-                    "Final image URL:",
+                    "New Employee Image URL:",
                     finalImageUrl
                 );
 
@@ -1683,7 +1321,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     profileImage.src =
                         finalImageUrl;
-
                 }
 
 
@@ -1691,58 +1328,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     photoPreview.src =
                         finalImageUrl;
-
                 }
 
-            }
-            else {
 
-                /*
-                 * If backend does not return image path,
-                 * reload complete profile.
-                 */
+                // Update current employee object
+                if (currentEmployee) {
 
-                await loadEmployeeProfile();
-
+                    currentEmployee.profileImage =
+                        imagePath;
+                }
             }
 
 
-            /* =================================================
-               CLOSE MODAL
-               ================================================= */
+            // =================================================
+            // CLOSE MODAL
+            // =================================================
 
             closePhotoUploadModal();
 
-
-            /*
-             * Clear file
-             */
 
             profilePhotoInput.value =
                 "";
 
 
+            // =================================================
+            // RELOAD EMPLOYEE PROFILE
+            // =================================================
+
+            await loadEmployeeProfile();
+
+
             alert(
-                "Profile photo updated successfully."
+                "Employee profile photo updated successfully."
             );
 
 
-        }
-        catch (error) {
+        } catch (error) {
 
             console.error(
-                "Photo upload error:",
+                "======================================"
+            );
+
+            console.error(
+                "EMPLOYEE PHOTO UPLOAD ERROR"
+            );
+
+            console.error(
                 error
             );
 
-
-            showPhotoError(
-                error.message ||
-                "Unable to upload profile photo."
+            console.error(
+                "======================================"
             );
 
-        }
-        finally {
+
+            if (
+                error instanceof TypeError &&
+                error.message === "Failed to fetch"
+            ) {
+
+                showPhotoError(
+                    "Employee photo upload request was blocked by the browser. Check the backend response/CORS configuration."
+                );
+
+            } else {
+
+                showPhotoError(
+                    error.message ||
+                    "Unable to upload employee profile photo."
+                );
+            }
+
+
+        } finally {
 
             if (uploadPhotoBtn) {
 
@@ -1751,36 +1409,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 uploadPhotoBtn.textContent =
                     "Upload Photo";
-
             }
         }
     }
 
 
-    /* ========================================================
-       ESC KEY
-       ======================================================== */
+    // =========================================================
+    // ESC KEY
+    // =========================================================
 
     document.addEventListener(
         "keydown",
         function (event) {
 
-            if (
-                event.key === "Escape"
-            ) {
+            if (event.key === "Escape") {
 
                 closeEditProfileModal();
 
                 closePhotoUploadModal();
-
             }
         }
     );
 
 
-    /* ========================================================
-       INITIAL PROFILE LOAD
-       ======================================================== */
+    // =========================================================
+    // INITIAL LOAD
+    // =========================================================
 
     loadEmployeeProfile();
 

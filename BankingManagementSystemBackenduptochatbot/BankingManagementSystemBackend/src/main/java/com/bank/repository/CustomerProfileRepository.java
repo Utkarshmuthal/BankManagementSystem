@@ -7,6 +7,11 @@ import com.bank.dto.response.CustomerResponse;
 import com.bank.entity.CustomerProfile;
 
 public interface CustomerProfileRepository {
+	boolean existsByMobile(String mobile);
+
+    boolean existsByAadhaar(String aadhaar);
+
+    boolean existsByPan(String pan);
 
     int saveCustomer(CustomerProfile customer);
 

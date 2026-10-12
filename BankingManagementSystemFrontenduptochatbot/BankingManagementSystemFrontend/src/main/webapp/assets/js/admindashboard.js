@@ -350,26 +350,33 @@ function escapeHTML(str) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
-const logoutBtn = document.getElementById("logoutBtn");
+// =====================================================
+// ADMIN LOGOUT - WORKS ON ALL ADMIN SIDEBAR PAGES
+// =====================================================
 
-if (logoutBtn) {
+document.addEventListener("DOMContentLoaded", function () {
 
-    logoutBtn.addEventListener("click", function () {
+    const logoutBtn = document.getElementById("logoutBtn");
 
-        if (confirm("Are you sure you want to logout?")) {
+    if (!logoutBtn) return;
 
-            // Remove stored login details
-            sessionStorage.removeItem("userId");
-            sessionStorage.removeItem("role");
+    logoutBtn.addEventListener("click", function (event) {
 
-            // Or clear all session storage
-            // sessionStorage.clear();
+        event.preventDefault();
 
-            // Go to login page
-            window.location.href = "../login.jsp";
+        const confirmLogout = confirm("Are you sure you want to logout?");
 
+        if (!confirmLogout) {
+            return;
         }
+
+        // Clear all login/session data
+        sessionStorage.clear();
+
+        // Redirect to login page
+        window.location.href =
+            `${window.location.origin}${window.location.pathname.split('/admin/')[0]}/login.jsp`;
 
     });
 
-}
+});

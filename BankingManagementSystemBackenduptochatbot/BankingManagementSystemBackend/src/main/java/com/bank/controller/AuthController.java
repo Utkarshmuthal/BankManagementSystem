@@ -14,6 +14,7 @@ import com.bank.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
+//@RequestMapping("/auth")
 @CrossOrigin(
     origins = {"http://localhost:8085"},
     allowCredentials = "true"

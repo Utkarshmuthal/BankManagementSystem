@@ -1,0 +1,1078 @@
+/* =========================================================
+   CUSTOMER TRANSACTION HISTORY
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f5f7fb;
+
+    color: #172033;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    min-height: 100vh;
+}
+
+
+.content-area {
+    padding: 25px;
+}
+
+
+/* =========================================================
+   BANNER
+========================================================= */
+
+.transaction-banner {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    min-height: 155px;
+
+    padding: 30px 35px;
+
+    margin-bottom: 22px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #e8f0ff,
+            #dce8ff
+        );
+
+}
+
+
+.banner-left h2 {
+
+    margin: 0 0 7px;
+
+    font-size: 24px;
+
+    color: #172033;
+
+}
+
+
+.banner-left p {
+
+    margin: 0 0 15px;
+
+    font-size: 13px;
+
+    color: #647087;
+
+}
+
+
+.account-info-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 13px;
+
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    color: #49617f;
+
+    font-size: 12px;
+
+}
+
+
+.account-info-badge i {
+
+    color: #3168f5;
+
+}
+
+
+.account-info-badge strong {
+
+    color: #172033;
+
+}
+
+
+.banner-right {
+
+    font-size: 65px;
+
+    color: #9dbaf8;
+
+    padding-right: 35px;
+
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.transaction-summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.summary-card {
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(30, 50, 90, 0.05);
+
+}
+
+
+.summary-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 19px;
+
+}
+
+
+.summary-icon.blue {
+
+    background: #e8efff;
+
+    color: #3168f5;
+
+}
+
+
+.summary-icon.purple {
+
+    background: #eee9ff;
+
+    color: #7656ed;
+
+}
+
+
+.summary-icon.green {
+
+    background: #e5f8ef;
+
+    color: #15a965;
+
+}
+
+
+.summary-icon.orange {
+
+    background: #fff0dc;
+
+    color: #f08c22;
+
+}
+
+
+.summary-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.summary-content span {
+
+    font-size: 11px;
+
+    color: #7a8497;
+
+}
+
+
+.summary-content strong {
+
+    font-size: 18px;
+
+    color: #172033;
+
+}
+
+
+/* =========================================================
+   TRANSACTION CARD
+========================================================= */
+
+.transaction-card {
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 3px 15px
+        rgba(30, 50, 90, 0.05);
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.transaction-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 22px;
+
+}
+
+
+.header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.header-icon {
+
+    width: 43px;
+
+    height: 43px;
+
+    border-radius: 11px;
+
+    background: #eaf0ff;
+
+    color: #3168f5;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.header-left h3 {
+
+    margin: 0 0 4px;
+
+    font-size: 18px;
+
+}
+
+
+.header-left p {
+
+    margin: 0;
+
+    font-size: 11px;
+
+    color: #7a8497;
+
+}
+
+
+.download-btn {
+
+    border: none;
+
+    background: #3168f5;
+
+    color: #ffffff;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.download-btn:hover {
+
+    background: #2557d7;
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.filter-section {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 12px;
+
+    padding: 16px;
+
+    margin-bottom: 22px;
+
+    border-radius: 11px;
+
+    background: #f8f9fc;
+
+    border: 1px solid #edf0f5;
+
+    flex-wrap: wrap;
+
+}
+
+
+.filter-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    min-width: 145px;
+
+}
+
+
+.filter-group label {
+
+    font-size: 11px;
+
+    color: #5e697b;
+
+    font-weight: 600;
+
+}
+
+
+.search-group {
+
+    flex: 1;
+
+    min-width: 190px;
+
+}
+
+
+.input-box {
+
+    position: relative;
+
+}
+
+
+.input-box i {
+
+    position: absolute;
+
+    left: 11px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #7d8798;
+
+    font-size: 11px;
+
+    pointer-events: none;
+
+}
+
+
+.input-box input,
+.input-box select {
+
+    width: 100%;
+
+    height: 37px;
+
+    border: 1px solid #dfe3eb;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    padding: 0 10px 0 31px;
+
+    outline: none;
+
+    font-size: 11px;
+
+    color: #344054;
+
+}
+
+
+.input-box input:focus,
+.input-box select:focus {
+
+    border-color: #3168f5;
+
+}
+
+
+.apply-btn,
+.reset-btn {
+
+    height: 37px;
+
+    padding: 0 14px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+}
+
+
+.apply-btn {
+
+    border: none;
+
+    background: #3168f5;
+
+    color: #ffffff;
+
+}
+
+
+.reset-btn {
+
+    border: 1px solid #dfe3eb;
+
+    background: #ffffff;
+
+    color: #5e697b;
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+.transaction-table {
+
+    width: 100%;
+
+    min-width: 950px;
+
+    border-collapse: collapse;
+
+}
+
+
+.transaction-table th {
+
+    padding: 13px 10px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #e8ebf1;
+
+    color: #697386;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+.transaction-table td {
+
+    padding: 14px 10px;
+
+    border-bottom: 1px solid #eef0f4;
+
+    font-size: 11px;
+
+    color: #344054;
+
+}
+
+
+.transaction-table tbody tr:hover {
+
+    background: #fafbfe;
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.date-time {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+}
+
+
+.date-time strong {
+
+    font-size: 11px;
+
+    color: #273142;
+
+}
+
+
+.date-time small {
+
+    font-size: 9px;
+
+    color: #8a93a3;
+
+}
+
+
+/* =========================================================
+   TRANSACTION TYPE
+========================================================= */
+
+.transaction-type {
+
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 15px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+}
+
+
+.transaction-type.deposit {
+
+    background: #e5f8ef;
+
+    color: #0c9b58;
+
+}
+
+
+.transaction-type.withdraw {
+
+    background: #fff0f0;
+
+    color: #e33c3c;
+
+}
+
+
+.transaction-type.transfer {
+
+    background: #eaf0ff;
+
+    color: #3567d9;
+
+}
+
+
+.transaction-type.interest {
+
+    background: #fff5dc;
+
+    color: #d89000;
+
+}
+
+
+/* =========================================================
+   REFERENCE
+========================================================= */
+
+.reference-id {
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    color: #697386;
+
+}
+
+
+/* =========================================================
+   AMOUNT
+========================================================= */
+
+.transaction-amount {
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+.transaction-amount.credit {
+
+    color: #0c9b58;
+
+}
+
+
+.transaction-amount.debit {
+
+    color: #e33c3c;
+
+}
+
+
+.balance {
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 15px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+}
+
+
+.status.success {
+
+    background: #e5f8ef;
+
+    color: #0c9b58;
+
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+
+    min-height: 220px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #8993a5;
+
+}
+
+
+.empty-state i {
+
+    font-size: 38px;
+
+    margin-bottom: 10px;
+
+    color: #bdc5d3;
+
+}
+
+
+.empty-state h3 {
+
+    margin: 0 0 5px;
+
+    color: #465064;
+
+    font-size: 15px;
+
+}
+
+
+.empty-state p {
+
+    margin: 0;
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.pagination-section {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-top: 17px;
+
+}
+
+
+.transaction-count {
+
+    font-size: 10px;
+
+    color: #7b8596;
+
+}
+
+
+.pagination {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+}
+
+
+.pagination button,
+.page-number {
+
+    width: 30px;
+
+    height: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 6px;
+
+    border: 1px solid #dfe3eb;
+
+    background: #ffffff;
+
+    color: #697386;
+
+    font-size: 10px;
+
+}
+
+
+.pagination button {
+
+    cursor: pointer;
+
+}
+
+
+.pagination button:disabled {
+
+    opacity: 0.4;
+
+    cursor: not-allowed;
+
+}
+
+
+.page-number.active {
+
+    background: #3168f5;
+
+    border-color: #3168f5;
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   INFORMATION BANNER
+========================================================= */
+
+.info-banner {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+    padding: 15px 18px;
+
+    border-radius: 10px;
+
+    background: #eef4ff;
+
+    border: 1px solid #dbe6ff;
+
+}
+
+
+.info-banner-icon {
+
+    color: #3168f5;
+
+    font-size: 18px;
+
+}
+
+
+.info-banner-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    font-size: 11px;
+
+    color: #687386;
+
+}
+
+
+.info-banner-text strong {
+
+    color: #344054;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .transaction-summary {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .content-area {
+
+        padding: 15px;
+
+    }
+
+
+    .transaction-banner {
+
+        padding: 25px;
+
+    }
+
+
+    .banner-right {
+
+        display: none;
+
+    }
+
+
+    .transaction-summary {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .transaction-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+    }
+
+
+    .download-btn {
+
+        width: 100%;
+
+        justify-content: center;
+
+    }
+
+
+    .filter-section {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .filter-group,
+    .search-group {
+
+        width: 100%;
+
+    }
+
+
+    .apply-btn,
+    .reset-btn {
+
+        justify-content: center;
+
+    }
+
+
+    .pagination-section {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+    }
+
+}

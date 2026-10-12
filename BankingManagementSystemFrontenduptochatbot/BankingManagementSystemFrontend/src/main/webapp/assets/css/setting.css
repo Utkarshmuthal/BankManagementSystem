@@ -1,0 +1,1573 @@
+/* ============================================================
+   BANK MANAGEMENT SYSTEM
+   ADMIN SETTINGS PAGE - COMPLETE CSS
+   ============================================================ */
+
+
+/* ============================================================
+   1. ROOT VARIABLES
+   ============================================================ */
+
+:root {
+    --sidebar-bg: #081630;
+    --sidebar-hover: #12284c;
+    --sidebar-active: #1877f2;
+    --sidebar-text: #aab6c8;
+    --sidebar-text-active: #ffffff;
+
+    --bg-main: #f4f7fe;
+    --card-bg: #ffffff;
+
+    --border-color: #e1e6ee;
+
+    --text-primary: #0b1f4b;
+    --text-secondary: #687286;
+
+    --primary: #1769df;
+    --primary-hover: #075bc9;
+
+    --success: #10b981;
+    --danger: #ef4444;
+}
+
+
+/* ============================================================
+   2. RESET
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Plus Jakarta Sans", -apple-system,
+                 BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+
+/* ============================================================
+   3. BODY
+   ============================================================ */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   4. APP CONTAINER
+   ============================================================ */
+
+.app-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   5. SIDEBAR
+   ============================================================ */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 238px;
+    height: 100vh;
+
+    background: var(--sidebar-bg);
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px 16px 18px;
+
+    z-index: 1000;
+
+    overflow: hidden;
+
+    box-shadow: 3px 0 15px rgba(0, 0, 0, 0.10);
+}
+
+
+/* ============================================================
+   6. SIDEBAR BRAND
+   ============================================================ */
+
+.sidebar-brand {
+    height: 78px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 5px 8px 18px;
+
+    margin-bottom: 18px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    flex-shrink: 0;
+}
+
+
+/* Bank Icon */
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #1877f2,
+        #075bc9
+    );
+
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.35);
+}
+
+
+/* Brand Text */
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1.1;
+}
+
+.brand-text h3 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    letter-spacing: 0.3px;
+
+    line-height: 18px;
+}
+
+.brand-text p {
+    margin: 2px 0 0;
+
+    color: #aab6c8;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 0.5px;
+
+    text-transform: uppercase;
+}
+
+
+/* ============================================================
+   7. SIDEBAR MENU
+   ============================================================ */
+
+.sidebar-menu {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    overflow: hidden;
+
+    min-height: 0;
+}
+
+
+/* ============================================================
+   8. MENU ITEM
+   ============================================================ */
+
+.menu-item {
+    width: 100%;
+
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 11px 12px;
+
+    color: var(--sidebar-text);
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 9px;
+
+    transition: all 0.2s ease;
+
+    flex-shrink: 0;
+}
+
+
+/* Menu Icon */
+
+.menu-item i {
+    width: 22px;
+
+    flex-shrink: 0;
+
+    text-align: center;
+
+    font-size: 17px;
+}
+
+
+/* Hover */
+
+.menu-item:hover {
+    background: var(--sidebar-hover);
+    color: #ffffff;
+}
+
+
+/* Active */
+
+.menu-item.active {
+    background: linear-gradient(
+        90deg,
+        #1877f2,
+        #2563eb
+    );
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.30);
+}
+
+
+/* ============================================================
+   9. SIDEBAR FOOTER
+   ============================================================ */
+
+.sidebar-footer {
+    width: 100%;
+
+    flex-shrink: 0;
+
+    margin-top: auto;
+
+    padding-top: 15px;
+    padding-bottom: 4px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+
+/* ============================================================
+   10. LOGOUT BUTTON
+   ============================================================ */
+
+.logout-btn,
+.logout-pill {
+    width: 100%;
+
+    min-height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 10px 14px;
+
+    background: #f32f43;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+
+    transition: all 0.2s ease;
+}
+
+.logout-btn i,
+.logout-pill i {
+    font-size: 14px;
+}
+
+.logout-btn:hover,
+.logout-pill:hover {
+    background: #dc2638;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 6px 14px rgba(239, 68, 68, 0.30);
+}
+
+
+/* ============================================================
+   11. MAIN AREA
+   ============================================================ */
+
+.main-area,
+.main-wrapper,
+.main-content {
+    margin-left: 238px;
+
+    width: calc(100% - 238px);
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: var(--bg-main);
+}
+
+
+/* ============================================================
+   12. TOP NAVBAR
+   ============================================================ */
+
+.topbar {
+    width: 100%;
+
+    height: 64px;
+
+    min-height: 64px;
+
+    flex-shrink: 0;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #dfe5ed;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 26px;
+
+    position: relative;
+
+    z-index: 100;
+}
+
+
+/* ============================================================
+   13. NAVBAR LEFT
+   ============================================================ */
+
+.topbar-left {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    min-width: 0;
+}
+
+
+/* Hamburger */
+
+.toggle-menu-btn,
+.menu-toggle {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: #52617a;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+    transition: 0.2s ease;
+}
+
+.toggle-menu-btn:hover,
+.menu-toggle:hover {
+    background: #f1f4f9;
+
+    color: var(--primary);
+}
+
+
+/* Page Title */
+
+.page-title {
+    margin: 0;
+
+    color: #0b1f4b;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   14. NAVBAR RIGHT
+   ============================================================ */
+
+.topbar-right {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 17px;
+
+    flex-shrink: 0;
+}
+
+
+/* ============================================================
+   15. SEARCH BAR
+   ============================================================ */
+
+.search-bar {
+    width: 235px;
+    height: 38px;
+
+    padding: 0 11px;
+
+    display: flex;
+    align-items: center;
+
+    background: #f8fafc;
+
+    border: 1px solid #dfe4eb;
+
+    border-radius: 6px;
+}
+
+.search-bar i {
+    margin-right: 8px;
+
+    color: #7d8798;
+
+    font-size: 13px;
+}
+
+.search-bar input {
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+
+    background: transparent;
+
+    border: none;
+
+    outline: none;
+
+    color: #17233f;
+
+    font-size: 12px;
+}
+
+.search-bar input::placeholder {
+    color: #929aaa;
+}
+
+
+/* ============================================================
+   16. NOTIFICATION BUTTON
+   ============================================================ */
+
+.icon-badge-btn,
+.notification-btn {
+    position: relative;
+
+    width: 40px;
+    height: 40px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+
+    border: none;
+
+    border-radius: 50%;
+
+    color: #0b1f4b;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    flex-shrink: 0;
+}
+
+.icon-badge-btn:hover,
+.notification-btn:hover {
+    background: #f1f4f9;
+}
+
+
+/* ============================================================
+   17. NOTIFICATION BADGE
+   ============================================================ */
+
+.icon-badge-btn .badge,
+.notification-btn .notification-count {
+    position: absolute;
+
+    top: 1px;
+    right: 0;
+
+    min-width: 16px;
+    height: 16px;
+
+    padding: 0 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #d9252a;
+
+    color: #ffffff;
+
+    border: 2px solid #ffffff;
+
+    border-radius: 50%;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+
+/* ============================================================
+   18. USER PROFILE
+   ============================================================ */
+
+.user-profile-menu,
+.admin-user {
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+    padding: 4px 5px;
+}
+
+
+/* ============================================================
+   19. USER AVATAR
+   ============================================================ */
+
+.user-avatar,
+.admin-avatar {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #f1f4f8;
+
+    border: 1px solid #dfe4eb;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+}
+
+
+/* Avatar image */
+
+.user-avatar img,
+.admin-avatar img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    border-radius: 50%;
+}
+
+
+/* Avatar icon */
+
+.user-avatar > i,
+.admin-avatar > i {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0b1f4b;
+
+    font-size: 18px;
+}
+
+
+/* ============================================================
+   20. USER DETAILS
+   ============================================================ */
+
+.user-details,
+.admin-info {
+    height: 42px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    white-space: nowrap;
+}
+
+
+/* User name */
+
+.user-name,
+.admin-name {
+    display: block;
+
+    margin: 0;
+
+    color: #101a37;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    line-height: 17px;
+}
+
+
+/* User role */
+
+.user-role,
+.admin-role {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #687286;
+
+    font-size: 10px;
+
+    font-weight: 400;
+
+    line-height: 14px;
+}
+
+
+/* ============================================================
+   21. DROPDOWN ARROW
+   ============================================================ */
+
+.dropdown-icon,
+.arrow {
+    width: 18px;
+    height: 40px;
+
+    margin-left: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #0b1f4b;
+
+    font-size: 10px;
+
+    flex-shrink: 0;
+}
+
+
+/* ============================================================
+   22. MIDDLE CONTENT
+   ONLY THIS AREA WILL SCROLL
+   ============================================================ */
+
+.content-container {
+    flex: 1;
+
+    width: 100%;
+
+    min-height: 0;
+
+    padding: 18px 25px 25px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: var(--bg-main);
+
+    scrollbar-width: thin;
+
+    scrollbar-color: #b8c2d1 transparent;
+}
+
+
+/* Chrome / Edge scrollbar */
+
+.content-container::-webkit-scrollbar {
+    width: 7px;
+}
+
+.content-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+    background: #b8c2d1;
+
+    border-radius: 10px;
+}
+
+.content-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* If your settings page uses settings-container directly */
+
+.main-area > .settings-container,
+.main-wrapper > .settings-container,
+.main-content > .settings-container {
+    flex: 1;
+
+    min-height: 0;
+
+    width: 100%;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding: 16px 25px 20px;
+
+    scrollbar-width: thin;
+
+    scrollbar-color: #b8c2d1 transparent;
+}
+
+
+/* ============================================================
+   23. SETTINGS CONTAINER
+   ============================================================ */
+
+.settings-container {
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 16px 25px 20px;
+}
+
+
+/* ============================================================
+   24. SETTINGS CARD
+   ============================================================ */
+
+.settings-card {
+    width: 100%;
+
+    margin-bottom: 14px;
+
+    padding: 18px 23px 16px;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e6ee;
+
+    border-radius: 9px;
+
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.035);
+}
+
+
+/* ============================================================
+   25. SECTION TITLE
+   ============================================================ */
+
+.section-title {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    margin-bottom: 17px;
+}
+
+.section-title h2 {
+    margin: 0;
+
+    color: #0b1b3d;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    line-height: 31px;
+}
+
+
+/* ============================================================
+   26. SECTION ICON
+   ============================================================ */
+
+.section-icon {
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #1769df;
+
+    color: #ffffff;
+
+    border-radius: 50%;
+
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   27. FORM ROW
+   ============================================================ */
+
+.form-row {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+/* ============================================================
+   28. FORM GROUP
+   ============================================================ */
+
+.form-group {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+
+    color: #111a35;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    line-height: 16px;
+}
+
+
+/* ============================================================
+   29. FORM INPUT
+   ============================================================ */
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    height: 42px;
+
+    padding: 0 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #d6dce5;
+
+    border-radius: 5px;
+
+    outline: none;
+
+    color: #18233e;
+
+    font-size: 12px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+    border-color: #c5ccd7;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #1769df;
+
+    box-shadow:
+        0 0 0 2px rgba(23, 105, 223, 0.08);
+}
+
+.form-group input::placeholder {
+    color: #8b93a2;
+}
+
+
+/* ============================================================
+   30. BUTTON AREA
+   ============================================================ */
+
+.button-area {
+    width: 100%;
+
+    margin-top: 15px;
+
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+
+/* ============================================================
+   31. PRIMARY BUTTON
+   ============================================================ */
+
+.primary-btn {
+    height: 34px;
+
+    padding: 0 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    background: #0969df;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 5px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+    background: #075bc9;
+
+    box-shadow:
+        0 3px 8px rgba(9, 105, 223, 0.20);
+}
+
+
+/* ============================================================
+   32. NOTIFICATION GRID
+   ============================================================ */
+
+.notification-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+}
+
+
+/* ============================================================
+   33. NOTIFICATION ITEM
+   ============================================================ */
+
+.notification-item {
+    min-width: 0;
+
+    min-height: 62px;
+
+    padding: 0 24px;
+
+    border-right: 1px solid #dce1e8;
+}
+
+.notification-item:first-child {
+    padding-left: 7px;
+}
+
+.notification-item:last-child {
+    border-right: none;
+}
+
+
+/* ============================================================
+   34. CHECKBOX
+   ============================================================ */
+
+.checkbox-container {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.checkbox-container input {
+    position: absolute;
+
+    width: 0;
+    height: 0;
+
+    opacity: 0;
+}
+
+.custom-checkbox {
+    width: 17px;
+    height: 17px;
+
+    margin-right: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #bdc5d2;
+
+    border-radius: 3px;
+
+    transition: 0.2s ease;
+}
+
+.checkbox-container:hover .custom-checkbox {
+    border-color: #1769df;
+}
+
+.checkbox-container input:checked + .custom-checkbox {
+    background: #1769df;
+
+    border-color: #1769df;
+}
+
+.checkbox-container input:checked + .custom-checkbox::after {
+    content: "✓";
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+
+/* ============================================================
+   35. NOTIFICATION TEXT
+   ============================================================ */
+
+.notification-heading {
+    color: #111b38;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 17px;
+}
+
+.notification-item p {
+    margin: 5px 0 0 26px;
+
+    color: #687184;
+
+    font-size: 10px;
+
+    font-weight: 400;
+
+    line-height: 15px;
+}
+
+
+/* ============================================================
+   36. SETTINGS FOOTER
+   ============================================================ */
+
+.settings-footer {
+    width: 100%;
+
+    padding: 5px 0;
+
+    text-align: center;
+
+    color: #4f586c;
+
+    font-size: 10px;
+
+    line-height: 15px;
+}
+
+
+/* ============================================================
+   37. IMPORTANT - PREVENT SIDEBAR/NAVBAR SCROLL
+   ============================================================ */
+
+.sidebar,
+.topbar {
+    overflow: hidden;
+}
+
+.sidebar-menu {
+    overflow: hidden;
+}
+
+body,
+.app-container {
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   38. RESPONSIVE - 1100px
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    .form-row {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .notification-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .notification-item {
+        padding: 12px 0;
+
+        border-right: none;
+
+        border-bottom: 1px solid #e1e5eb;
+    }
+
+    .notification-item:first-child {
+        padding-left: 0;
+    }
+
+    .notification-item:last-child {
+        border-bottom: none;
+    }
+
+    .search-bar {
+        width: 190px;
+    }
+}
+
+
+/* ============================================================
+   39. RESPONSIVE - 900px
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-area,
+    .main-wrapper,
+    .main-content {
+        margin-left: 220px;
+
+        width: calc(100% - 220px);
+    }
+
+    .brand-text h3 {
+        font-size: 15px;
+    }
+
+    .brand-text p {
+        font-size: 9px;
+    }
+
+    .menu-item {
+        font-size: 13px;
+
+        padding: 10px 11px;
+    }
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .topbar-right {
+        gap: 10px;
+    }
+
+    .search-bar {
+        width: 170px;
+    }
+}
+
+
+/* ============================================================
+   40. RESPONSIVE - 768px
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 0;
+
+        padding-left: 0;
+        padding-right: 0;
+
+        overflow: hidden;
+
+        box-shadow: none;
+    }
+
+    .sidebar.open {
+        width: 238px;
+
+        padding-left: 16px;
+        padding-right: 16px;
+
+        box-shadow:
+            3px 0 15px rgba(0, 0, 0, 0.20);
+    }
+
+    .main-area,
+    .main-wrapper,
+    .main-content {
+        margin-left: 0;
+
+        width: 100%;
+    }
+
+    .topbar {
+        height: 62px;
+
+        min-height: 62px;
+
+        padding: 0 15px;
+    }
+
+    .topbar-left {
+        gap: 12px;
+    }
+
+    .page-title {
+        font-size: 18px;
+    }
+
+    .search-bar {
+        display: none;
+    }
+
+    .user-details,
+    .admin-info,
+    .dropdown-icon,
+    .arrow {
+        display: none;
+    }
+
+    .settings-container {
+        padding: 15px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .notification-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ============================================================
+   41. RESPONSIVE - 480px
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .topbar {
+        height: 60px;
+
+        min-height: 60px;
+
+        padding: 0 10px;
+    }
+
+    .topbar-left {
+        gap: 8px;
+    }
+
+    .page-title {
+        font-size: 17px;
+    }
+
+    .icon-badge-btn,
+    .notification-btn {
+        display: none;
+    }
+
+    .user-avatar,
+    .admin-avatar {
+        width: 36px;
+        height: 36px;
+
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    .settings-container {
+        padding: 10px;
+    }
+
+    .settings-card {
+        padding: 15px;
+    }
+
+    .button-area {
+        justify-content: stretch;
+    }
+
+    .primary-btn {
+        width: 100%;
+    }
+}
+
+
+/* ============================================================
+   42. SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 360px) {
+
+    .settings-container {
+        padding: 8px;
+    }
+
+    .settings-card {
+        padding: 13px;
+    }
+
+    .page-title {
+        font-size: 16px;
+    }
+}
+
+/* =========================================================
+   EMAIL UPDATE POPUP
+   ========================================================= */
+
+.email-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.email-modal-overlay.show {
+    display: flex;
+}
+
+.email-modal {
+    position: relative;
+    width: 380px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    animation: emailModalShow 0.2s ease;
+}
+
+.email-modal h2 {
+    margin: 0 0 12px;
+    font-size: 22px;
+    color: #172b4d;
+}
+
+.email-modal p {
+    margin: 0 0 25px;
+    color: #5f6b7a;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.email-modal-close {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    color: #555;
+    cursor: pointer;
+}
+
+.email-modal-close:hover {
+    color: #111;
+}
+
+.email-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.email-cancel-btn,
+.email-update-btn {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.email-cancel-btn {
+    background: #eeeeee;
+    color: #333;
+}
+
+.email-update-btn {
+    background: #1261d6;
+    color: white;
+}
+
+.email-update-btn:hover {
+    opacity: 0.9;
+}
+
+.email-cancel-btn:hover {
+    background: #dddddd;
+}
+
+@keyframes emailModalShow {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

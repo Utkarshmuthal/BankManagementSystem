@@ -1,11 +1,15 @@
 package com.bank.serviceImpl;
+import com.bank.entity.Account;
 import com.bank.entity.Loan;
 import com.bank.entity.LoanEmi;
+import com.bank.repository.AccountRepository;
+import com.bank.repository.EmployeeTransactionRepository;
 import com.bank.repository.LoanRepository;
 import com.bank.repository.LoanEmiRepository;
 import com.bank.service.LoanEmiService;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,12 +21,19 @@ public class LoanEmiServiceImpl implements LoanEmiService {
 
 	private final LoanEmiRepository loanEmiRepository;
 	private final LoanRepository loanRepository;
+	private final AccountRepository accountRepository;
+	private final EmployeeTransactionRepository transactionRepository;
+
 	public LoanEmiServiceImpl(
 	        LoanEmiRepository loanEmiRepository,
-	        LoanRepository loanRepository) {
+	        LoanRepository loanRepository,
+	        AccountRepository accountRepository,
+	        EmployeeTransactionRepository transactionRepository) {
 
 	    this.loanEmiRepository = loanEmiRepository;
 	    this.loanRepository = loanRepository;
+	    this.accountRepository = accountRepository;
+	    this.transactionRepository = transactionRepository;
 	}
 
     @Override
@@ -46,6 +57,7 @@ public class LoanEmiServiceImpl implements LoanEmiService {
     }
 
     @Override
+    @Transactional
     public LoanEmi payEmi(
             Long emiId,
             BigDecimal paidAmount) {
@@ -85,6 +97,58 @@ public class LoanEmiServiceImpl implements LoanEmiService {
             );
         }
 
+        // -------------------------------------------------
+        // Debit the linked account before marking EMI paid
+        // -------------------------------------------------
+
+        Loan loan =
+                loanRepository.findById(emi.getLoanId());
+
+        if (loan == null) {
+            throw new RuntimeException(
+                    "Loan not found for this EMI"
+            );
+        }
+
+        Account customerAccount =
+                accountRepository.findByCustomerId(
+                        loan.getCustomerId()
+                );
+
+        if (customerAccount == null) {
+            throw new RuntimeException(
+                    "Customer does not have an active account "
+                            + "to pay this EMI from"
+            );
+        }
+
+        BigDecimal currentBalance =
+                transactionRepository.getBalance(
+                        customerAccount.getAccountNumber()
+                );
+
+        if (currentBalance.compareTo(paidAmount) < 0) {
+            throw new RuntimeException(
+                    "Insufficient balance to pay this EMI"
+            );
+        }
+
+        transactionRepository.updateBalance(
+                customerAccount.getAccountNumber(),
+                currentBalance.subtract(paidAmount)
+        );
+
+        transactionRepository.insertTransaction(
+                customerAccount.getAccountNumber(),
+                null,
+                null,
+                "EMI_PAYMENT",
+                paidAmount,
+                "EMI #" + emi.getEmiNumber()
+                        + " for Loan #" + loan.getLoanId(),
+                "SUCCESS"
+        );
+
         // Mark EMI as paid
         emi.setPaidAmount(paidAmount);
         emi.setPaymentDate(LocalDate.now());
@@ -115,17 +179,9 @@ public class LoanEmiServiceImpl implements LoanEmiService {
 
         if (allPaid) {
 
-            Loan loan =
-                    loanRepository.findById(
-                            emi.getLoanId()
-                    );
+            loan.setStatus("CLOSED");
 
-            if (loan != null) {
-
-                loan.setStatus("CLOSED");
-
-                loanRepository.update(loan);
-            }
+            loanRepository.update(loan);
         }
 
         return emi;

@@ -15,5 +15,9 @@ public interface UserRepository {
     Long registerCustomerUser(User user);
     int updateUserStatus(Long userId, String status);
     Long findCustomerIdByUserId(Long userId);
+    Long findEmployeeIdByUserId(Long userId);
     void updatePassword(Long userId, String password);
+    User findById(Long userId);
+    boolean existsByEmail(String email);
+    
 }

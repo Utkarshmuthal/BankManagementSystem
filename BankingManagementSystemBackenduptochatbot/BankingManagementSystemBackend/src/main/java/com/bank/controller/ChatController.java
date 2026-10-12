@@ -8,6 +8,7 @@ import com.bank.service.GeminiService;
 
 @RestController
 @RequestMapping("/api/chat")
+//@RequestMapping("/chat")
 //@CrossOrigin(origins = "*")
 public class ChatController {
 

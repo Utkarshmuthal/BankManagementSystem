@@ -310,5 +310,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         initials.textContent = result;
     }
+	window.addEventListener(
+	    "customerProfileUpdated",
+	    function () {
+
+	        console.log(
+	            "Customer profile updated. Reloading navbar profile..."
+	        );
+
+	        loadNavbarProfile(customerId);
+	    }
+	);
 
 });

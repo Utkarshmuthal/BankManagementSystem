@@ -11,6 +11,8 @@
    ========================================================= */
 
 const LOAN_API = "http://localhost:8082/api/loans";
+const BACKEND_ROOT = "http://localhost:8082";
+const DOC_API = "http://localhost:8082/api/loan-documents";
 
 let allLoans = [];
 let selectedLoan = null;
@@ -145,6 +147,8 @@ async function reviewLoan(loanId) {
         displayLoanDetails(selectedLoan);
         clearAssessmentForm();
         await loadAssessment(loanId);
+        await loadEmployeeDocuments(loanId);
+        await loadEmployeeEmiSchedule(loanId);
         setupDecisionButtons(selectedLoan);
 
         const modal = document.getElementById("loanReviewModal");
@@ -173,6 +177,236 @@ function displayLoanDetails(loan) {
         reviewItem("Purpose", escapeHtml(loan.purpose || "-"), true),
         reviewItem("Rejection Reason", escapeHtml(loan.rejectionReason || "-"), true)
     ].join("");
+}
+
+async function loadEmployeeDocuments(loanId) {
+    const container = document.getElementById("employeeDocumentsList");
+    if (!container) return;
+
+    container.innerHTML = `<p class="doc-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading documents...</p>`;
+
+    try {
+        const response = await fetch(`${DOC_API}/loan/${loanId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: { "Accept": "application/json" }
+        });
+
+        const data = await readJson(response);
+        if (!response.ok) throw new Error(getError(data, "Unable to load documents."));
+
+        const documents = Array.isArray(data) ? data : [];
+
+        if (documents.length === 0) {
+            container.innerHTML = `<p class="doc-empty">No documents uploaded by the customer yet.</p>`;
+            return;
+        }
+
+        container.innerHTML = documents.map(doc => {
+            const status = String(doc.verificationStatus || "PENDING").toUpperCase();
+            const fileUrl = `${BACKEND_ROOT}/${doc.filePath}`;
+            const isPending = status === "PENDING";
+
+            return `
+                <div class="employee-document-card">
+                    <div class="employee-document-info">
+                        <strong>${escapeHtml(doc.documentType || "Document")}</strong>
+                        <small>${escapeHtml(doc.fileName || "")}</small>
+                        ${doc.remarks ? `<small class="doc-remarks">${escapeHtml(doc.remarks)}</small>` : ""}
+                    </div>
+
+                    <div class="employee-document-actions">
+                        <a class="view-doc-link" href="${fileUrl}" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-eye"></i> View
+                        </a>
+
+                        <span class="doc-status doc-status-${status.toLowerCase()}">${escapeHtml(status)}</span>
+
+                        ${isPending ? `
+                            <button type="button" class="doc-verify-btn" onclick="verifyEmployeeDocument(${Number(doc.documentId)}, ${Number(loanId)})">
+                                <i class="fa-solid fa-check"></i> Verify
+                            </button>
+                            <button type="button" class="doc-reject-btn" onclick="rejectEmployeeDocument(${Number(doc.documentId)}, ${Number(loanId)})">
+                                <i class="fa-solid fa-xmark"></i> Reject
+                            </button>
+                        ` : ""}
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        // -------------------------------------------------
+        // Sync the assessment's Background / Document
+        // Verification dropdown with the actual per-document
+        // decisions above, so the employee doesn't have to
+        // make the same judgment call twice. They can still
+        // override it manually before saving the assessment.
+        // -------------------------------------------------
+
+        const anyRejected = documents.some(
+            d => String(d.verificationStatus || "").toUpperCase() === "REJECTED"
+        );
+
+        const allVerified = documents.every(
+            d => String(d.verificationStatus || "").toUpperCase() === "VERIFIED"
+        );
+
+        const backgroundCheckField = document.getElementById("backgroundCheck");
+        let newBackgroundCheck = null;
+
+        if (backgroundCheckField) {
+            if (anyRejected) {
+                newBackgroundCheck = "REJECTED";
+            } else if (allVerified) {
+                newBackgroundCheck = "VERIFIED";
+            } else {
+                newBackgroundCheck = "PENDING";
+            }
+
+            setValue("backgroundCheck", newBackgroundCheck);
+        }
+
+        // -------------------------------------------------
+        // If an assessment already exists, persist the
+        // synced value right away so Approve doesn't need
+        // a separate manual "Save Assessment" click after
+        // reviewing documents.
+        // -------------------------------------------------
+
+        if (selectedAssessment && newBackgroundCheck) {
+            await saveAssessment();
+        }
+
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = `<p class="doc-error">${escapeHtml(error.message)}</p>`;
+    }
+}
+
+async function verifyEmployeeDocument(documentId, loanId) {
+    const employeeId = sessionStorage.getItem("employeeId");
+
+    if (!employeeId) {
+        alert("Employee session not found. Please log in again.");
+        return;
+    }
+
+    if (!confirm("Mark this document as verified?")) return;
+
+    try {
+        const response = await fetch(
+            `${DOC_API}/${documentId}/verify?verifiedBy=${encodeURIComponent(employeeId)}`,
+            {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Accept": "application/json" }
+            }
+        );
+
+        if (!response.ok) {
+            const data = await readJson(response);
+            throw new Error(getError(data, "Unable to verify document."));
+        }
+
+        showMessage("Document verified.", "success");
+        await loadEmployeeDocuments(loanId);
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+async function rejectEmployeeDocument(documentId, loanId) {
+    const employeeId = sessionStorage.getItem("employeeId");
+
+    if (!employeeId) {
+        alert("Employee session not found. Please log in again.");
+        return;
+    }
+
+    const remarks = prompt("Enter reason for rejecting this document:");
+    if (remarks === null) return;
+
+    if (!remarks.trim()) {
+        alert("Rejection remarks are required.");
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `${DOC_API}/${documentId}/reject?verifiedBy=${encodeURIComponent(employeeId)}&remarks=${encodeURIComponent(remarks.trim())}`,
+            {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Accept": "application/json" }
+            }
+        );
+
+        if (!response.ok) {
+            const data = await readJson(response);
+            throw new Error(getError(data, "Unable to reject document."));
+        }
+
+        showMessage("Document rejected.", "success");
+        await loadEmployeeDocuments(loanId);
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+async function loadEmployeeEmiSchedule(loanId) {
+    const container = document.getElementById("employeeEmiSchedule");
+    if (!container) return;
+
+    container.innerHTML = `<p class="doc-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading EMI schedule...</p>`;
+
+    try {
+        const response = await fetch(`${BACKEND_ROOT}/api/loan-emis/loan/${loanId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: { "Accept": "application/json" }
+        });
+
+        const data = await readJson(response);
+
+        if (!response.ok || !Array.isArray(data) || data.length === 0) {
+            container.innerHTML = `<p class="doc-empty">No EMI schedule yet -- this loan hasn't been approved.</p>`;
+            return;
+        }
+
+        const emis = data;
+        const paidCount = emis.filter(e => String(e.status).toUpperCase() === "PAID").length;
+        const pct = Math.round((paidCount / emis.length) * 100);
+
+        const rows = emis.map(e => `
+            <tr>
+                <td>${e.emiNumber ?? "-"}</td>
+                <td>${formatDate(e.dueDate)}</td>
+                <td>${formatCurrency(e.emiAmount)}</td>
+                <td><span class="doc-status doc-status-${String(e.status || "").toLowerCase()}">${escapeHtml(e.status || "-")}</span></td>
+            </tr>
+        `).join("");
+
+        container.innerHTML = `
+            <div class="emi-progress-wrap">
+                <div class="emi-progress-bar"><div class="emi-progress-fill" style="width:${pct}%;"></div></div>
+                <span class="emi-progress-text">${paidCount}/${emis.length} paid (${pct}%)</span>
+            </div>
+            <div class="loan-mini-table-wrapper">
+                <table class="loan-mini-table">
+                    <thead>
+                        <tr><th>#</th><th>Due Date</th><th>Amount</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>
+        `;
+
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = `<p class="doc-error">Unable to load EMI schedule.</p>`;
+    }
 }
 
 async function loadAssessment(loanId) {

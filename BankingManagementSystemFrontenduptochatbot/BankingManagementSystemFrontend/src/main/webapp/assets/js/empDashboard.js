@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loadDashboardStats();
 
     loadRecentRegistrations();
+	
 
 });
 
@@ -330,3 +331,28 @@ function loadEmployeeProfile() {
 	    return response.json();
 
 	}
+	/* =====================================================
+	   Employee Logout
+	===================================================== */
+	/* =====================================================
+	   EMPLOYEE LOGOUT
+	===================================================== */
+
+	
+	function employeeLogout() {
+
+	    const confirmLogout =
+	        confirm("Are you sure you want to logout?");
+
+	    if (!confirmLogout) {
+	        return false;
+	    }
+
+	    sessionStorage.removeItem("userId");
+	    sessionStorage.removeItem("role");
+	    sessionStorage.removeItem("employeeId");
+	    sessionStorage.removeItem("employeeName");
+
+	    return true;
+	}
+	

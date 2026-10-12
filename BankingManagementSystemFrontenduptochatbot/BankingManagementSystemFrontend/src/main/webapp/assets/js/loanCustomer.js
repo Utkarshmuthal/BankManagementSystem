@@ -1,6 +1,8 @@
 const API = "http://localhost:8082/api";
+const BACKEND_ROOT = API.replace(/\/api$/, "");
 
 let currentLoanId = null;
+let currentLoanData = null;
 
 
 /* =========================================================
@@ -703,6 +705,102 @@ async function applyLoan(
      * Loan object
      */
 
+    /*
+     * IMPORTANT FIX:
+     * Read + validate monthly income BEFORE the loan is created.
+     * Previously this validation ran after POST /api/loans/apply,
+     * which could leave an orphaned PENDING loan (with no
+     * assessment) if validation failed here.
+     */
+
+        const monthlyIncomeElement =
+            document.getElementById(
+                "monthlyIncome"
+            );
+
+
+        const monthlyExpensesElement =
+            document.getElementById(
+                "monthlyExpenses"
+            );
+
+
+        const existingEmiElement =
+            document.getElementById(
+                "existingEmi"
+            );
+
+
+        const employmentMonthsElement =
+            document.getElementById(
+                "employmentMonths"
+            );
+
+
+        const repaymentSourceElement =
+            document.getElementById(
+                "repaymentSource"
+            );
+
+
+        const monthlyIncomeRaw =
+            monthlyIncomeElement
+                ? monthlyIncomeElement.value.trim()
+                : "";
+
+
+        const monthlyExpensesRaw =
+            monthlyExpensesElement
+                ? monthlyExpensesElement.value.trim()
+                : "";
+
+
+        const existingEmiRaw =
+            existingEmiElement
+                ? existingEmiElement.value.trim()
+                : "";
+
+
+        const employmentMonthsRaw =
+            employmentMonthsElement
+                ? employmentMonthsElement.value.trim()
+                : "";
+
+
+        const repaymentSource =
+            repaymentSourceElement
+                ? repaymentSourceElement.value
+                : "";
+
+
+        /*
+         * Education:
+         * monthly income can be zero.
+         *
+         * Other loan types:
+         * monthly income must be > 0.
+         */
+
+        if (
+            loanType !== "EDUCATION" &&
+            (
+                !monthlyIncomeRaw ||
+                Number(monthlyIncomeRaw) <= 0
+            )
+        ) {
+
+            showMessage(
+                "Monthly income must be greater than zero for " +
+                loanType +
+                " loan.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
     const loan = {
 
         customerId:
@@ -824,94 +922,6 @@ async function applyLoan(
          * STEP 2
          * Create Loan Assessment
          */
-
-        const monthlyIncomeElement =
-            document.getElementById(
-                "monthlyIncome"
-            );
-
-
-        const monthlyExpensesElement =
-            document.getElementById(
-                "monthlyExpenses"
-            );
-
-
-        const existingEmiElement =
-            document.getElementById(
-                "existingEmi"
-            );
-
-
-        const employmentMonthsElement =
-            document.getElementById(
-                "employmentMonths"
-            );
-
-
-        const repaymentSourceElement =
-            document.getElementById(
-                "repaymentSource"
-            );
-
-
-        const monthlyIncomeRaw =
-            monthlyIncomeElement
-                ? monthlyIncomeElement.value.trim()
-                : "";
-
-
-        const monthlyExpensesRaw =
-            monthlyExpensesElement
-                ? monthlyExpensesElement.value.trim()
-                : "";
-
-
-        const existingEmiRaw =
-            existingEmiElement
-                ? existingEmiElement.value.trim()
-                : "";
-
-
-        const employmentMonthsRaw =
-            employmentMonthsElement
-                ? employmentMonthsElement.value.trim()
-                : "";
-
-
-        const repaymentSource =
-            repaymentSourceElement
-                ? repaymentSourceElement.value
-                : "";
-
-
-        /*
-         * Education:
-         * monthly income can be zero.
-         *
-         * Other loan types:
-         * monthly income must be > 0.
-         */
-
-        if (
-            loanType !== "EDUCATION" &&
-            (
-                !monthlyIncomeRaw ||
-                Number(monthlyIncomeRaw) <= 0
-            )
-        ) {
-
-            showMessage(
-                "Monthly income must be greater than zero for " +
-                loanType +
-                " loan.",
-                "error"
-            );
-
-            return;
-
-        }
-
 
         const assessment = {
 
@@ -1085,6 +1095,9 @@ function viewLoan(
 
     currentLoanId =
         loan.loanId;
+
+    currentLoanData =
+        loan;
 
 
     const details =
@@ -1918,7 +1931,7 @@ async function loadEmis() {
                 <div class="table-wrapper">
 
 
-                    <table>
+                    <table class="loan-table">
 
 
                         <thead>
@@ -2183,6 +2196,71 @@ async function loadDocuments() {
         `;
 
 
+        /*
+         * Only allow new uploads while the loan is still
+         * PENDING. Once an employee has approved/rejected it,
+         * there is nothing left to review.
+         */
+
+        const loanStatus =
+            String(
+                (currentLoanData && currentLoanData.status) ||
+                ""
+            ).toUpperCase();
+
+
+        if (loanStatus === "PENDING") {
+
+            html += `
+
+                <div class="document-upload-form">
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>Document Type</label>
+
+                            <select id="uploadDocType">
+                                <option value="ID_PROOF">ID Proof</option>
+                                <option value="INCOME_PROOF">Income Proof</option>
+                                <option value="ADDRESS_PROOF">Address Proof</option>
+                                <option value="BANK_STATEMENT">Bank Statement</option>
+                                <option value="PROPERTY_PAPERS">Property Papers</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>File</label>
+
+                            <input type="file" id="uploadDocFile" accept=".pdf,.jpg,.jpeg,.png">
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="primary-btn upload-btn"
+                            onclick="uploadLoanDocument()">
+
+                            <i class="fa-solid fa-upload"></i>
+                            Upload
+
+                        </button>
+
+                    </div>
+
+                    <div id="uploadDocMessage"></div>
+
+                </div>
+
+            `;
+
+        }
+
+
         if (
             !Array.isArray(documents) ||
             documents.length === 0
@@ -2215,6 +2293,9 @@ async function loadDocuments() {
                         doc.status ||
                         "PENDING";
 
+                    const fileUrl =
+                        BACKEND_ROOT + "/" + doc.filePath;
+
 
                     html += `
 
@@ -2242,16 +2323,38 @@ async function loadDocuments() {
 
                                 </small>
 
+
+                                ${
+                                    doc.remarks
+                                        ? `<small class="doc-remarks">${escapeHtml(doc.remarks)}</small>`
+                                        : ""
+                                }
+
                             </div>
 
 
-                            <span class="status">
+                            <div class="document-card-actions">
 
-                                ${escapeHtml(
-                                    status
-                                )}
+                                <a
+                                    class="view-doc-link"
+                                    href="${fileUrl}"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
 
-                            </span>
+                                    <i class="fa-solid fa-eye"></i>
+                                    View
+
+                                </a>
+
+                                <span class="doc-status doc-status-${String(status).toLowerCase()}">
+
+                                    ${escapeHtml(
+                                        status
+                                    )}
+
+                                </span>
+
+                            </div>
 
 
                         </div>
@@ -2299,6 +2402,127 @@ async function loadDocuments() {
             </div>
 
         `;
+
+    }
+
+}
+
+
+/* =========================================================
+   UPLOAD DOCUMENT
+   ========================================================= */
+
+async function uploadLoanDocument() {
+
+    const typeSelect =
+        document.getElementById(
+            "uploadDocType"
+        );
+
+    const fileInput =
+        document.getElementById(
+            "uploadDocFile"
+        );
+
+    const messageBox =
+        document.getElementById(
+            "uploadDocMessage"
+        );
+
+
+    if (!currentLoanId || !typeSelect || !fileInput) {
+        return;
+    }
+
+
+    const file =
+        fileInput.files && fileInput.files[0];
+
+
+    if (!file) {
+
+        if (messageBox) {
+            messageBox.innerHTML =
+                `<div class="form-message error">Please choose a file to upload.</div>`;
+        }
+
+        return;
+
+    }
+
+
+    const formData = new FormData();
+
+    formData.append("loanId", currentLoanId);
+    formData.append("documentType", typeSelect.value);
+    formData.append("file", file);
+
+
+    if (messageBox) {
+        messageBox.innerHTML =
+            `<div class="form-message">Uploading...</div>`;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/loan-documents/upload`,
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const responseText =
+            await response.text();
+
+        let data = null;
+
+        try {
+            data = responseText ? JSON.parse(responseText) : null;
+        } catch (e) {
+            // Non JSON response.
+        }
+
+
+        if (!response.ok) {
+
+            const message =
+                (data && (data.message || data.error)) ||
+                "Document upload failed.";
+
+            throw new Error(message);
+
+        }
+
+
+        if (messageBox) {
+            messageBox.innerHTML =
+                `<div class="form-message success">Document uploaded successfully.</div>`;
+        }
+
+
+        fileInput.value = "";
+
+
+        // Refresh the document list to show the new upload.
+        loadDocuments();
+
+
+    } catch (error) {
+
+        console.error(
+            "Upload Document Error:",
+            error
+        );
+
+        if (messageBox) {
+            messageBox.innerHTML =
+                `<div class="form-message error">${escapeHtml(error.message)}</div>`;
+        }
 
     }
 

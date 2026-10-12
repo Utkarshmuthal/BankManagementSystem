@@ -1,12 +1,16 @@
 package com.bank.serviceImpl;
 import com.bank.exception.LoanApplicationException;
+import com.bank.entity.Account;
 import com.bank.entity.Loan;
+import com.bank.repository.AccountRepository;
+import com.bank.repository.EmployeeTransactionRepository;
 import com.bank.repository.LoanRepository;
 import com.bank.service.LoanEmiService;
 import com.bank.service.LoanService;
 import com.bank.entity.LoanAssessment;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -19,13 +23,19 @@ public class LoanServiceImpl implements LoanService {
 
     private final LoanRepository loanRepository;
     private final LoanEmiService loanEmiService;
+    private final AccountRepository accountRepository;
+    private final EmployeeTransactionRepository transactionRepository;
 
     public LoanServiceImpl(
             LoanRepository loanRepository,
-            LoanEmiService loanEmiService) {
+            LoanEmiService loanEmiService,
+            AccountRepository accountRepository,
+            EmployeeTransactionRepository transactionRepository) {
 
         this.loanRepository = loanRepository;
         this.loanEmiService = loanEmiService;
+        this.accountRepository = accountRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     // =========================================================
@@ -555,6 +565,7 @@ assessment.setRiskScore(riskScore);
     // =========================================================
 
     @Override
+    @Transactional
     public Loan approveLoan(
             Long loanId,
             Double interestRate) {
@@ -846,6 +857,46 @@ assessment.setRiskScore(riskScore);
         loan.setStatus("ACTIVE");
 
         loan.setRejectionReason(null);
+
+        // -----------------------------------------------------
+        // Disburse approved amount into the customer's account
+        // -----------------------------------------------------
+
+        Account customerAccount =
+                accountRepository.findByCustomerId(
+                        loan.getCustomerId()
+                );
+
+        if (customerAccount == null) {
+
+            throw new RuntimeException(
+                    "Customer does not have an active account. "
+                            + "Loan cannot be disbursed."
+            );
+        }
+
+        BigDecimal currentBalance =
+                transactionRepository.getBalance(
+                        customerAccount.getAccountNumber()
+                );
+
+        BigDecimal newBalance =
+                currentBalance.add(principal);
+
+        transactionRepository.updateBalance(
+                customerAccount.getAccountNumber(),
+                newBalance
+        );
+
+        transactionRepository.insertTransaction(
+                customerAccount.getAccountNumber(),
+                null,
+                null,
+                "LOAN_DISBURSEMENT",
+                principal,
+                "Loan #" + loan.getLoanId() + " (" + loan.getLoanType() + ") disbursement",
+                "SUCCESS"
+        );
 
         // -----------------------------------------------------
         // Save approved loan

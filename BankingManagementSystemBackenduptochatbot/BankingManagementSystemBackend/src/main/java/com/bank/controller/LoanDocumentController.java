@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/loan-documents")
+//@RequestMapping("/loan-documents")
 public class LoanDocumentController {
 
     private final LoanDocumentService documentService;

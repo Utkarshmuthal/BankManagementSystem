@@ -11,6 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/loan-emis")
+//@RequestMapping("/loan-emis")
+
 
 public class LoanEmiController {
 

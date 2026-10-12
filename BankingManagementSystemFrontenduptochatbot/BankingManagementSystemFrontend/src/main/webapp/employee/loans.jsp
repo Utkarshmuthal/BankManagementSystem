@@ -13,7 +13,7 @@
           href="${pageContext.request.contextPath}/assets/css/empDashboard.css">
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/css/employeeLoan.css">
+          href="${pageContext.request.contextPath}/assets/css/employeeLoan.css?v=<%= System.currentTimeMillis() %>">
 </head>
 
 <body>
@@ -157,6 +157,16 @@
             <div id="loanDetails" class="review-grid"></div>
         </section>
 
+        <section class="review-section">
+            <h3><i class="fa-solid fa-folder-open"></i> Uploaded Documents</h3>
+            <div id="employeeDocumentsList" class="employee-documents-list"></div>
+        </section>
+
+        <section class="review-section">
+            <h3><i class="fa-solid fa-calendar-check"></i> EMI Schedule</h3>
+            <div id="employeeEmiSchedule"></div>
+        </section>
+
         <section class="review-section assessment-section">
             <div class="assessment-heading">
                 <div>
@@ -228,6 +238,7 @@
                             <option value="PENDING">Pending</option>
                             <option value="REJECTED">Rejected</option>
                         </select>
+                        <small class="field-hint">Auto-filled from the Uploaded Documents section below -- override here if needed.</small>
                     </div>
 
                     <div class="field field-wide">
@@ -279,6 +290,6 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/assets/js/loanEmp.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/loanEmp.js?v=<%= System.currentTimeMillis() %>"></script>
 </body>
 </html>

@@ -25,18 +25,7 @@
            class="nav-link <%= currentPage.contains("myAccount.jsp") ? "active" : "" %>">
             <i class="fa-solid fa-user"></i><span>My Account</span>
         </a>
-        <a href="${pageContext.request.contextPath}/customer/deposit.jsp"
-           class="nav-link <%= currentPage.contains("deposit.jsp") ? "active" : "" %>">
-            <i class="fa-solid fa-wallet"></i><span>Deposit</span>
-        </a>
-        <a href="${pageContext.request.contextPath}/customer/withdraw.jsp"
-           class="nav-link <%= currentPage.contains("withdraw.jsp") ? "active" : "" %>">
-            <i class="fa-solid fa-arrow-up"></i><span>Withdraw</span>
-        </a>
-        <a href="${pageContext.request.contextPath}/customer/fundTransfer.jsp"
-           class="nav-link <%= currentPage.contains("fundTransfer.jsp") ? "active" : "" %>">
-            <i class="fa-solid fa-right-left"></i><span>Fund Transfer</span>
-        </a>
+        
         <a href="${pageContext.request.contextPath}/customer/transactionHistory.jsp"
            class="nav-link <%= currentPage.contains("transactionHistory.jsp") ? "active" : "" %>">
             <i class="fa-solid fa-clipboard-list"></i><span>Transaction History</span>

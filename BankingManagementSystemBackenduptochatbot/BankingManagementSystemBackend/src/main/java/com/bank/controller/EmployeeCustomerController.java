@@ -20,6 +20,7 @@ import com.bank.service.EmployeeCustomerService;
 
 @RestController
 @RequestMapping("/api/employee/customers")
+//@RequestMapping("/employee/customers")
 public class EmployeeCustomerController {
 
 

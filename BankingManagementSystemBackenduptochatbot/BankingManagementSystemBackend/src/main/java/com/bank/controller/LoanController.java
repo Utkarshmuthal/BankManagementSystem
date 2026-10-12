@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/loans")
+//@RequestMapping("/loans")
 
 public class LoanController {
 

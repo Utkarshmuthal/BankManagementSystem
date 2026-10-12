@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/customers")
+//@RequestMapping("/admin/customers")
 public class AdminCustomerController {
 
     private final AdminCustomerService adminCustomerService;

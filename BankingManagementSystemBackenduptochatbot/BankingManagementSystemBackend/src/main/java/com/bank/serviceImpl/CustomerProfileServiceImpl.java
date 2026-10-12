@@ -38,7 +38,75 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
 
     @Override
     @Transactional
-    public ApiResponse<String> registerCustomer(CustomerRegistrationRequest request) {
+    public ApiResponse<String> registerCustomer(
+            CustomerRegistrationRequest request) {
+
+        // =====================================================
+        // 1. EMAIL DUPLICATE CHECK
+        // =====================================================
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+
+            return new ApiResponse<>(
+                    false,
+                    400,
+                    "Email already registered.",
+                    null
+            );
+        }
+
+
+        // =====================================================
+        // 2. MOBILE DUPLICATE CHECK
+        // =====================================================
+
+        if (customerRepository.existsByMobile(
+                request.getMobile())) {
+
+            return new ApiResponse<>(
+                    false,
+                    400,
+                    "Mobile number already registered.",
+                    null
+            );
+        }
+
+
+        // =====================================================
+        // 3. AADHAAR DUPLICATE CHECK
+        // =====================================================
+
+        if (customerRepository.existsByAadhaar(
+                request.getAadhaarNo())) {
+
+            return new ApiResponse<>(
+                    false,
+                    400,
+                    "Aadhaar number already registered.",
+                    null
+            );
+        }
+
+
+        // =====================================================
+        // 4. PAN DUPLICATE CHECK
+        // =====================================================
+
+        if (customerRepository.existsByPan(
+                request.getPanNo())) {
+
+            return new ApiResponse<>(
+                    false,
+                    400,
+                    "PAN number already registered.",
+                    null
+            );
+        }
+
+
+        // =====================================================
+        // 5. CREATE USER
+        // =====================================================
 
         User user = new User();
 
@@ -47,14 +115,25 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         user.setRole("CUSTOMER");
         user.setStatus("PENDING");
 
-        Long userId = userRepository.registerCustomerUser(user);
+        Long userId =
+                userRepository.registerCustomerUser(user);
 
-        String uploadDir = System.getProperty("user.dir") + "/uploads";
+
+        // =====================================================
+        // 6. FILE UPLOAD
+        // =====================================================
+
+        String uploadDir =
+                System.getProperty("user.dir") + "/uploads";
 
         String aadhaarFileName = null;
         String panFileName = null;
 
         try {
+
+            // -------------------------------------------------
+            // Aadhaar Image
+            // -------------------------------------------------
 
             if (request.getAadhaarImage() != null
                     && !request.getAadhaarImage().isEmpty()) {
@@ -62,19 +141,34 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
                 aadhaarFileName =
                         System.currentTimeMillis()
                         + "_"
-                        + request.getAadhaarImage().getOriginalFilename();
+                        + request.getAadhaarImage()
+                                .getOriginalFilename();
 
                 Path aadhaarFolder =
-                        Paths.get(uploadDir, "aadhaar");
+                        Paths.get(
+                                uploadDir,
+                                "aadhaar"
+                        );
 
-                Files.createDirectories(aadhaarFolder);
+                Files.createDirectories(
+                        aadhaarFolder
+                );
 
                 Path aadhaarPath =
-                        aadhaarFolder.resolve(aadhaarFileName);
+                        aadhaarFolder.resolve(
+                                aadhaarFileName
+                        );
 
                 request.getAadhaarImage()
-                       .transferTo(aadhaarPath.toFile());
+                        .transferTo(
+                                aadhaarPath.toFile()
+                        );
             }
+
+
+            // -------------------------------------------------
+            // PAN Image
+            // -------------------------------------------------
 
             if (request.getPanImage() != null
                     && !request.getPanImage().isEmpty()) {
@@ -82,58 +176,131 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
                 panFileName =
                         System.currentTimeMillis()
                         + "_"
-                        + request.getPanImage().getOriginalFilename();
+                        + request.getPanImage()
+                                .getOriginalFilename();
 
                 Path panFolder =
-                        Paths.get(uploadDir, "pan");
+                        Paths.get(
+                                uploadDir,
+                                "pan"
+                        );
 
-                Files.createDirectories(panFolder);
+                Files.createDirectories(
+                        panFolder
+                );
 
                 Path panPath =
-                        panFolder.resolve(panFileName);
+                        panFolder.resolve(
+                                panFileName
+                        );
 
                 request.getPanImage()
-                       .transferTo(panPath.toFile());
+                        .transferTo(
+                                panPath.toFile()
+                        );
             }
+
 
         } catch (IOException e) {
 
             throw new RuntimeException(
-                    "File upload failed : " + e.getMessage());
+                    "File upload failed : "
+                    + e.getMessage()
+            );
         }
 
-        CustomerProfile customer = new CustomerProfile();
+
+        // =====================================================
+        // 7. CREATE CUSTOMER PROFILE
+        // =====================================================
+
+        CustomerProfile customer =
+                new CustomerProfile();
 
         customer.setUserId(userId);
-        customer.setFullName(request.getFullName());
-        customer.setDob(request.getDob());
-        customer.setGender(request.getGender());
-        customer.setMobile(request.getMobile());
-        customer.setAddress(request.getAddress());
-        customer.setCity(request.getCity());
-        customer.setState(request.getState());
-        customer.setPinCode(request.getPinCode());
 
-        customer.setAadhaarNo(request.getAadhaarNo());
-        customer.setPanNo(request.getPanNo());
+        customer.setFullName(
+                request.getFullName()
+        );
 
-        customer.setAadhaarImage(aadhaarFileName);
-        customer.setPanImage(panFileName);
+        customer.setDob(
+                request.getDob()
+        );
 
-        customer.setAccountType(request.getAccountType());
+        customer.setGender(
+                request.getGender()
+        );
 
-        customer.setApprovalStatus("PENDING_APPROVAL");
-        customer.setEmail(request.getEmail());
+        customer.setMobile(
+                request.getMobile()
+        );
 
-        customerRepository.saveCustomer(customer);
+        customer.setAddress(
+                request.getAddress()
+        );
+
+        customer.setCity(
+                request.getCity()
+        );
+
+        customer.setState(
+                request.getState()
+        );
+
+        customer.setPinCode(
+                request.getPinCode()
+        );
+
+        customer.setAadhaarNo(
+                request.getAadhaarNo()
+        );
+
+        customer.setPanNo(
+                request.getPanNo()
+        );
+
+        customer.setAadhaarImage(
+                aadhaarFileName
+        );
+
+        customer.setPanImage(
+                panFileName
+        );
+
+        customer.setAccountType(
+                request.getAccountType()
+        );
+
+        customer.setApprovalStatus(
+                "PENDING_APPROVAL"
+        );
+
+        customer.setEmail(
+                request.getEmail()
+        );
+
+
+        // =====================================================
+        // 8. SAVE CUSTOMER
+        // =====================================================
+
+        customerRepository.saveCustomer(
+                customer
+        );
+
+
+        // =====================================================
+        // 9. SUCCESS RESPONSE
+        // =====================================================
 
         return new ApiResponse<>(
                 true,
                 200,
-                "Registration submitted successfully. Your account is under verification.",
-                null);
+                "Registration submitted successfully. "
+                + "Your account is under verification.",
+                null
+        );
     }
-
     @Override
     public ApiResponse<List<CustomerResponse>> getPendingCustomers() {
 

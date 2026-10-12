@@ -10,6 +10,7 @@ public class LoginResponse {
 
     private String role;
     private Long customerId;
+    private Long employeeId;
 
 
 
@@ -21,6 +22,18 @@ public class LoginResponse {
 
 	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
+	}
+
+
+
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
 	}
 
 

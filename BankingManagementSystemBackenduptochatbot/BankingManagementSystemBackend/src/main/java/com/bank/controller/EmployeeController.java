@@ -24,6 +24,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/admin")
+//@RequestMapping("/admin")
 public class EmployeeController {
 
     @Autowired

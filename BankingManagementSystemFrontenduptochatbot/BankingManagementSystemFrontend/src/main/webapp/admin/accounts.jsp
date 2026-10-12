@@ -540,7 +540,7 @@
 <script
         src="${pageContext.request.contextPath}/assets/js/accounts.js">
 </script>
-
+<script src="${pageContext.request.contextPath}/assets/js/admindashboard.js"></script>
 
 </body>
 

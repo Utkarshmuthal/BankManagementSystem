@@ -74,7 +74,7 @@
 
             </a>
 
-            <a href="${pageContext.request.contextPath}/admin/transactions.jsp"
+            <a href="${pageContext.request.contextPath}/admin/transaction.jsp"
                class="menu-item <%= "transactions".equals(activePage) ? "active" : "" %>">
 
                 <i class="fa-solid fa-arrow-right-arrow-left"></i>
@@ -82,7 +82,7 @@
 
             </a>
 
-            <a href="${pageContext.request.contextPath}/admin/reports.jsp"
+            <a href="${pageContext.request.contextPath}/admin/report.jsp"
                class="menu-item <%= "reports".equals(activePage) ? "active" : "" %>">
 
                 <i class="fa-solid fa-chart-pie"></i>
@@ -90,7 +90,7 @@
 
             </a>
 
-            <a href="${pageContext.request.contextPath}/admin/settings.jsp"
+            <a href="${pageContext.request.contextPath}/admin/setting.jsp"
                class="menu-item <%= "settings".equals(activePage) ? "active" : "" %>">
 
                 <i class="fa-solid fa-gear"></i>
@@ -98,13 +98,7 @@
 
             </a>
 
-            <a href="${pageContext.request.contextPath}/admin/profile.jsp"
-               class="menu-item <%= "profile".equals(activePage) ? "active" : "" %>">
-
-                <i class="fa-solid fa-user"></i>
-                <span>Profile</span>
-
-            </a>
+           
 
         </nav>
 

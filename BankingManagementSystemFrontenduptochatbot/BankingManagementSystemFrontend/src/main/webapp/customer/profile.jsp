@@ -1181,6 +1181,7 @@
 <script
     src="${pageContext.request.contextPath}/assets/js/customer-profile.js">
 </script>
+<script src="${pageContext.request.contextPath}/assets/js/customerDashboard.js"></script>
 
 
 </body>

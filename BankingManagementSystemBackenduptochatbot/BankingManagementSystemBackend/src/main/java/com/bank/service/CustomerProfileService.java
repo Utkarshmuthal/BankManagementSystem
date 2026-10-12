@@ -10,37 +10,77 @@ import com.bank.dto.response.EmployeeCustomerResponse;
 
 public interface CustomerProfileService {
 
-    // Customer Registration
+    // =========================================================
+    // CUSTOMER REGISTRATION
+    // =========================================================
+
     ApiResponse<String> registerCustomer(CustomerRegistrationRequest request);
 
-    // Pending Requests
+
+    // =========================================================
+    // PENDING CUSTOMERS
+    // =========================================================
+
     ApiResponse<List<CustomerResponse>> getPendingCustomers();
 
-    // Pending Requests with Pagination
+
+    // =========================================================
+    // PENDING CUSTOMERS WITH PAGINATION
+    // =========================================================
+
     ApiResponse<List<CustomerResponse>> getPendingCustomers(int page, int size);
 
-    // View Customer Details
 
-    // Approve Customer
+    // =========================================================
+    // CUSTOMER DETAILS
+    // =========================================================
+
+    ApiResponse<CustomerDetailsResponse> getCustomerDetailsById(Long customerId);
+
+
+    // =========================================================
+    // APPROVE CUSTOMER
+    // =========================================================
+
     ApiResponse<String> approveCustomer(Long customerId);
 
-    // Reject Customer
+
+    // =========================================================
+    // REJECT CUSTOMER
+    // =========================================================
+
     ApiResponse<String> rejectCustomer(Long customerId);
 
-    // Approved Customers
+
+    // =========================================================
+    // APPROVED CUSTOMERS
+    // =========================================================
+
     ApiResponse<List<CustomerResponse>> getApprovedCustomers();
 
-    // Rejected Customers
+
+    // =========================================================
+    // REJECTED CUSTOMERS
+    // =========================================================
+
     ApiResponse<List<CustomerResponse>> getRejectedCustomers();
 
-    // Search Customers
+
+    // =========================================================
+    // SEARCH CUSTOMERS
+    // =========================================================
+
     ApiResponse<List<CustomerResponse>> searchCustomers(
             String keyword,
             String status,
             int page,
             int size);
-    // Dashboard Counts
+
+
+    // =========================================================
+    // DASHBOARD
+    // =========================================================
+
     ApiResponse<EmployeeCustomerResponse> getDashboardData();
 
-    ApiResponse<CustomerDetailsResponse> getCustomerDetailsById(Long customerId);
 }

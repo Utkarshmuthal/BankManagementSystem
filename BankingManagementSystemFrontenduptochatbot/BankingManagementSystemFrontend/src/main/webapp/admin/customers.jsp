@@ -138,14 +138,6 @@
                 </a>
 
 
-                <a href="${pageContext.request.contextPath}/admin/profile.jsp"
-                   class="menu-item">
-
-                    <i class="fa-solid fa-user"></i>
-
-                    <span>Profile</span>
-
-                </a>
 
             </nav>
 

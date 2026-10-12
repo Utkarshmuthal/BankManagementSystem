@@ -2,6 +2,7 @@ package com.bank.controller;
 
 import java.util.List;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import com.bank.service.EmployeeTransactionService;
 
 @RestController
 @RequestMapping("/api/employee/transactions")
+//@RequestMapping("/employee/transactions")
 public class EmployeeTransactionController {
 
     private final EmployeeTransactionService service;

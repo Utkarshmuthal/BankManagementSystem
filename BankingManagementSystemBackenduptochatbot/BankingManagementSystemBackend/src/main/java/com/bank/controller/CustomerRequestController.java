@@ -13,6 +13,7 @@ import com.bank.service.CustomerProfileService;
 
 @RestController
 @RequestMapping("/api/employee/requests")
+//@RequestMapping("/employee/requests")
 public class CustomerRequestController {
 
     @Autowired

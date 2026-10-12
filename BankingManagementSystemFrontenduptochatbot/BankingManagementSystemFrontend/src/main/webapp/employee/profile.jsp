@@ -13,23 +13,17 @@
     <title>Employee Profile | Bank Management System</title>
 
 
-    <!-- =====================================================
-         COMMON EMPLOYEE CSS
-         Sidebar + Navbar + Layout + Dashboard styles
-         ===================================================== -->
-         <!-- Font Awesome Icons -->
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+
+    <!-- Common Employee CSS -->
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/assets/css/empDashboard.css">
 
 
-    <!-- =====================================================
-         PROFILE PAGE CSS
-         Profile-specific styles only
-         ===================================================== -->
-
+    <!-- Employee Profile CSS -->
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/assets/css/employee-profile.css">
 
@@ -38,49 +32,36 @@
 
 <body>
 
-
-<!-- =========================================================
-     MAIN EMPLOYEE LAYOUT
-
-     IMPORTANT:
-     empdashboard.css expects sidebar and main-content
-     inside .layout
-     ========================================================= -->
-
 <div class="layout">
 
 
     <!-- =====================================================
-         COMMON SIDEBAR
+         SIDEBAR
          ===================================================== -->
 
     <jsp:include page="sidebar.jsp" />
 
 
     <!-- =====================================================
-         MAIN CONTENT AREA
+         MAIN CONTENT
          ===================================================== -->
 
     <div class="main-content">
 
 
-        <!-- =================================================
-             COMMON NAVBAR
-             ================================================= -->
+        <!-- NAVBAR -->
 
         <jsp:include page="navbar.jsp" />
 
 
-        <!-- =================================================
-             PROFILE PAGE CONTENT
-             ================================================= -->
+        <!-- =====================================================
+             PROFILE PAGE
+             ===================================================== -->
 
         <main class="employee-profile-page">
 
 
-            <!-- =================================================
-                 PAGE HEADER
-                 ================================================= -->
+            <!-- PAGE HEADER -->
 
             <div class="profile-page-header">
 
@@ -109,9 +90,9 @@
 
 
 
-            <!-- =================================================
+            <!-- =====================================================
                  PROFILE HEADER CARD
-                 ================================================= -->
+                 ===================================================== -->
 
             <section class="profile-header-card">
 
@@ -122,16 +103,19 @@
 
                     <div class="profile-photo-wrapper">
 
-                        <img id="profileImage"
-                             src="${pageContext.request.contextPath}/assets/images/default-profile.png"
-                             alt="Employee Profile Photo">
+                        <img
+                            id="profileImage"
+                            src="${pageContext.request.contextPath}/assets/images/default-profile.png"
+                            alt="Employee Profile Photo"
+                        >
 
                     </div>
 
 
-                    <button type="button"
-                            class="change-photo-btn"
-                            id="changePhotoBtn">
+                    <button
+                        type="button"
+                        class="change-photo-btn"
+                        id="changePhotoBtn">
 
                         <span>📷</span>
 
@@ -143,7 +127,7 @@
 
 
 
-                <!-- PROFILE BASIC INFORMATION -->
+                <!-- BASIC INFORMATION -->
 
                 <div class="profile-basic-info">
 
@@ -199,9 +183,9 @@
 
 
 
-            <!-- =================================================
-                 PROFILE INFORMATION GRID
-                 ================================================= -->
+            <!-- =====================================================
+                 PROFILE GRID
+                 ===================================================== -->
 
             <div class="profile-grid">
 
@@ -214,7 +198,6 @@
 
 
                     <div class="profile-card-header">
-
 
                         <div class="card-title-area">
 
@@ -237,16 +220,16 @@
                         </div>
 
 
-                        <button type="button"
-                                class="edit-btn"
-                                id="editProfileBtn">
+                        <button
+                            type="button"
+                            class="edit-btn"
+                            id="editProfileBtn">
 
                             ✎ Edit Profile
 
                         </button>
 
                     </div>
-
 
 
                     <div class="profile-details">
@@ -258,9 +241,12 @@
                                 First Name
                             </span>
 
-                            <span class="detail-value"
-                                  id="firstName">
+                            <span
+                                class="detail-value"
+                                id="firstName">
+
                                 -
+
                             </span>
 
                         </div>
@@ -272,9 +258,12 @@
                                 Last Name
                             </span>
 
-                            <span class="detail-value"
-                                  id="lastName">
+                            <span
+                                class="detail-value"
+                                id="lastName">
+
                                 -
+
                             </span>
 
                         </div>
@@ -286,9 +275,12 @@
                                 Mobile Number
                             </span>
 
-                            <span class="detail-value"
-                                  id="mobile">
+                            <span
+                                class="detail-value"
+                                id="mobile">
+
                                 -
+
                             </span>
 
                         </div>
@@ -300,13 +292,15 @@
                                 Email
                             </span>
 
-                            <span class="detail-value"
-                                  id="email">
+                            <span
+                                class="detail-value"
+                                id="email">
+
                                 -
+
                             </span>
 
                         </div>
-
 
                     </div>
 
@@ -322,7 +316,6 @@
 
 
                     <div class="profile-card-header">
-
 
                         <div class="card-title-area">
 
@@ -347,7 +340,6 @@
                     </div>
 
 
-
                     <div class="profile-details">
 
 
@@ -357,9 +349,12 @@
                                 Employee ID
                             </span>
 
-                            <span class="detail-value"
-                                  id="employmentEmployeeId">
+                            <span
+                                class="detail-value"
+                                id="employmentEmployeeId">
+
                                 -
+
                             </span>
 
                         </div>
@@ -371,9 +366,12 @@
                                 Designation
                             </span>
 
-                            <span class="detail-value"
-                                  id="designation">
+                            <span
+                                class="detail-value"
+                                id="designation">
+
                                 -
+
                             </span>
 
                         </div>
@@ -385,9 +383,12 @@
                                 Branch
                             </span>
 
-                            <span class="detail-value"
-                                  id="branch">
+                            <span
+                                class="detail-value"
+                                id="branch">
+
                                 -
+
                             </span>
 
                         </div>
@@ -399,13 +400,15 @@
                                 Salary
                             </span>
 
-                            <span class="detail-value"
-                                  id="salary">
+                            <span
+                                class="detail-value"
+                                id="salary">
+
                                 -
+
                             </span>
 
                         </div>
-
 
                     </div>
 
@@ -421,7 +424,6 @@
 
 
                     <div class="profile-card-header">
-
 
                         <div class="card-title-area">
 
@@ -446,7 +448,6 @@
                     </div>
 
 
-
                     <div class="profile-details">
 
 
@@ -456,9 +457,12 @@
                                 User ID
                             </span>
 
-                            <span class="detail-value"
-                                  id="userId">
+                            <span
+                                class="detail-value"
+                                id="userId">
+
                                 -
+
                             </span>
 
                         </div>
@@ -470,9 +474,12 @@
                                 Email
                             </span>
 
-                            <span class="detail-value"
-                                  id="accountEmail">
+                            <span
+                                class="detail-value"
+                                id="accountEmail">
+
                                 -
+
                             </span>
 
                         </div>
@@ -484,9 +491,12 @@
                                 Role
                             </span>
 
-                            <span class="detail-value"
-                                  id="role">
+                            <span
+                                class="detail-value"
+                                id="role">
+
                                 -
+
                             </span>
 
                         </div>
@@ -498,13 +508,15 @@
                                 Account Status
                             </span>
 
-                            <span class="detail-value status-active"
-                                  id="accountStatus">
+                            <span
+                                class="detail-value status-active"
+                                id="accountStatus">
+
                                 -
+
                             </span>
 
                         </div>
-
 
                     </div>
 
@@ -513,9 +525,7 @@
 
             </div>
 
-
         </main>
-
 
     </div>
 
@@ -527,14 +537,12 @@
      EDIT PROFILE MODAL
      ========================================================= -->
 
-<div class="profile-modal-overlay"
-     id="editProfileModal">
-
+<div
+    class="profile-modal-overlay"
+    id="editProfileModal">
 
     <div class="profile-modal">
 
-
-        <!-- MODAL HEADER -->
 
         <div class="modal-header">
 
@@ -551,9 +559,10 @@
             </div>
 
 
-            <button type="button"
-                    class="modal-close"
-                    id="closeEditModal">
+            <button
+                type="button"
+                class="modal-close"
+                id="closeEditModal">
 
                 ×
 
@@ -563,12 +572,8 @@
 
 
 
-        <!-- FORM -->
-
         <form id="editProfileForm">
 
-
-            <!-- FIRST NAME -->
 
             <div class="form-group">
 
@@ -576,17 +581,16 @@
                     First Name
                 </label>
 
-                <input type="text"
-                       id="editFirstName"
-                       name="firstName"
-                       maxlength="50"
-                       required>
+                <input
+                    type="text"
+                    id="editFirstName"
+                    name="firstName"
+                    maxlength="50"
+                    required>
 
             </div>
 
 
-
-            <!-- LAST NAME -->
 
             <div class="form-group">
 
@@ -594,17 +598,16 @@
                     Last Name
                 </label>
 
-                <input type="text"
-                       id="editLastName"
-                       name="lastName"
-                       maxlength="50"
-                       required>
+                <input
+                    type="text"
+                    id="editLastName"
+                    name="lastName"
+                    maxlength="50"
+                    required>
 
             </div>
 
 
-
-            <!-- MOBILE -->
 
             <div class="form-group">
 
@@ -612,17 +615,16 @@
                     Mobile Number
                 </label>
 
-                <input type="text"
-                       id="editMobile"
-                       name="mobile"
-                       maxlength="15"
-                       required>
+                <input
+                    type="text"
+                    id="editMobile"
+                    name="mobile"
+                    maxlength="15"
+                    required>
 
             </div>
 
 
-
-            <!-- SECURITY NOTE -->
 
             <div class="profile-security-note">
 
@@ -637,22 +639,22 @@
 
 
 
-            <!-- ACTION BUTTONS -->
-
             <div class="modal-actions">
 
-                <button type="button"
-                        class="cancel-btn"
-                        id="cancelEditBtn">
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelEditBtn">
 
                     Cancel
 
                 </button>
 
 
-                <button type="submit"
-                        class="save-btn"
-                        id="saveProfileBtn">
+                <button
+                    type="submit"
+                    class="save-btn"
+                    id="saveProfileBtn">
 
                     Save Changes
 
@@ -660,9 +662,7 @@
 
             </div>
 
-
         </form>
-
 
     </div>
 
@@ -671,17 +671,15 @@
 
 
 <!-- =========================================================
-     CHANGE PROFILE PHOTO MODAL
+     CHANGE PHOTO MODAL
      ========================================================= -->
 
-<div class="profile-modal-overlay"
-     id="photoModal">
-
+<div
+    class="profile-modal-overlay"
+    id="photoModal">
 
     <div class="profile-modal photo-modal">
 
-
-        <!-- MODAL HEADER -->
 
         <div class="modal-header">
 
@@ -698,9 +696,10 @@
             </div>
 
 
-            <button type="button"
-                    class="modal-close"
-                    id="closePhotoModal">
+            <button
+                type="button"
+                class="modal-close"
+                id="closePhotoModal">
 
                 ×
 
@@ -710,32 +709,33 @@
 
 
 
-        <!-- PHOTO UPLOAD -->
-
         <div class="photo-upload-area">
 
 
             <div class="photo-preview-wrapper">
 
-                <img id="photoPreview"
-                     src="${pageContext.request.contextPath}/assets/images/default-profile.png"
-                     alt="Photo Preview">
+                <img
+                    id="photoPreview"
+                    src="${pageContext.request.contextPath}/assets/images/default-profile.png"
+                    alt="Photo Preview">
 
             </div>
 
 
-            <label for="profilePhotoInput"
-                   class="choose-photo-btn">
+            <label
+                for="profilePhotoInput"
+                class="choose-photo-btn">
 
                 📁 Choose Photo
 
             </label>
 
 
-            <input type="file"
-                   id="profilePhotoInput"
-                   accept="image/png,image/jpeg,image/jpg"
-                   hidden>
+            <input
+                type="file"
+                id="profilePhotoInput"
+                accept="image/png,image/jpeg,image/jpg"
+                hidden>
 
 
             <p class="photo-info">
@@ -744,45 +744,43 @@
 
                 <br>
 
-                Maximum size: 2 MB
+                Maximum size: 5 MB
 
             </p>
 
 
-            <p id="photoError"
-               class="photo-error">
+            <p
+                id="photoError"
+                class="photo-error">
             </p>
-
 
         </div>
 
 
 
-        <!-- ACTION BUTTONS -->
-
         <div class="modal-actions">
 
 
-            <button type="button"
-                    class="cancel-btn"
-                    id="cancelPhotoBtn">
+            <button
+                type="button"
+                class="cancel-btn"
+                id="cancelPhotoBtn">
 
                 Cancel
 
             </button>
 
 
-            <button type="button"
-                    class="save-btn"
-                    id="uploadPhotoBtn">
+            <button
+                type="button"
+                class="save-btn"
+                id="uploadPhotoBtn">
 
                 Upload Photo
 
             </button>
 
-
         </div>
-
 
     </div>
 
@@ -791,12 +789,14 @@
 
 
 <!-- =========================================================
-     EMPLOYEE PROFILE JAVASCRIPT
+     EMPLOYEE PROFILE JS
+     IMPORTANT: cache-busting version changed
      ========================================================= -->
 
-<script src="${pageContext.request.contextPath}/assets/js/employee-profile.js"></script>
+<script
+    src="${pageContext.request.contextPath}/assets/js/employee-profile.js?v=10">
+</script>
 
 
 </body>
-
 </html>

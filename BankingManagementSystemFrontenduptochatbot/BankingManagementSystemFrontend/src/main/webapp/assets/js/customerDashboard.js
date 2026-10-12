@@ -946,3 +946,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+/* =====================================================
+   COMMON LOGOUT FUNCTION
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            console.log("Logout clicked");
+
+            // Clear logged-in user session
+            sessionStorage.clear();
+
+            // Clear browser stored data if any
+            localStorage.removeItem("userId");
+            localStorage.removeItem("role");
+            localStorage.removeItem("customerId");
+            localStorage.removeItem("employeeId");
+
+            // Redirect to login page
+            window.location.href =
+                contextPath + "/login.jsp";
+        });
+    }
+
+});

@@ -639,8 +639,8 @@ padding:60px 20px;
 
     <div class="about-image">
 
-        <img src="${pageContext.request.contextPath}/assets/images/Features.jpg"
-             alt="Online Banking">
+        <img src="${pageContext.request.contextPath}/assets/images/security		.jpeg"
+             alt="Features">
 
     </div>
 

@@ -14,6 +14,7 @@ import com.bank.service.CustomerDashboardService;
 
 @RestController
 @RequestMapping("/api/customer")
+//@RequestMapping("/customer")
 public class CustomerDashboardController {
 
     @Autowired

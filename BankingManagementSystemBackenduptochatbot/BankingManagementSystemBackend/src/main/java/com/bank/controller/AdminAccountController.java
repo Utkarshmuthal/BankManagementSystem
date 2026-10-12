@@ -12,6 +12,7 @@ import com.bank.service.AdminAccountService;
 
 @RestController
 @RequestMapping("/api/admin/accounts")
+//@RequestMapping("/admin/accounts")
 public class AdminAccountController {
 
     @Autowired

@@ -204,4 +204,81 @@ public class AccountRepositoryImpl implements AccountRepository {
 
         return accounts.get(0);
     }
+
+
+    // ============================================================
+    // GET ACCOUNT BY CUSTOMER ID (most recent ACTIVE account)
+    // Used by the loan module for disbursement / EMI debits.
+    // ============================================================
+
+    @Override
+    public Account findByCustomerId(Long customerId) {
+
+        String sql = """
+                SELECT
+                    account_id,
+                    account_number,
+                    customer_id,
+                    account_type,
+                    balance,
+                    status,
+                    created_at
+                FROM accounts
+                WHERE customer_id = ?
+                AND status = 'ACTIVE'
+                ORDER BY account_id DESC
+                LIMIT 1
+                """;
+
+        List<Account> accounts = jdbcTemplate.query(
+                sql,
+
+                (rs, rowNum) -> {
+
+                    Account account = new Account();
+
+                    account.setAccountId(
+                            rs.getLong("account_id")
+                    );
+
+                    account.setAccountNumber(
+                            rs.getString("account_number")
+                    );
+
+                    account.setCustomerId(
+                            rs.getLong("customer_id")
+                    );
+
+                    account.setAccountType(
+                            rs.getString("account_type")
+                    );
+
+                    account.setBalance(
+                            rs.getBigDecimal("balance")
+                    );
+
+                    account.setStatus(
+                            rs.getString("status")
+                    );
+
+                    if (rs.getTimestamp("created_at") != null) {
+
+                        account.setCreatedAt(
+                                rs.getTimestamp("created_at")
+                                   .toLocalDateTime()
+                        );
+                    }
+
+                    return account;
+                },
+
+                customerId
+        );
+
+        if (accounts.isEmpty()) {
+            return null;
+        }
+
+        return accounts.get(0);
+    }
 }

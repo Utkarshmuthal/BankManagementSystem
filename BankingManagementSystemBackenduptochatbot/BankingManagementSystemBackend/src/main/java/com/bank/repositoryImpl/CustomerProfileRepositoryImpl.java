@@ -62,7 +62,57 @@ public class CustomerProfileRepositoryImpl implements CustomerProfileRepository 
                 customer.getApprovalStatus(),
                 customer.getEmail());
     }
+    @Override
+    public boolean existsByMobile(String mobile) {
 
+        String sql = """
+                SELECT COUNT(*)
+                FROM customer_profiles
+                WHERE mobile_number = ?
+                """;
+
+        Integer count = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                mobile
+        );
+
+        return count != null && count > 0;
+    }
+    @Override
+    public boolean existsByAadhaar(String aadhaar) {
+
+        String sql = """
+                SELECT COUNT(*)
+                FROM customer_profiles
+                WHERE aadhaar_number = ?
+                """;
+
+        Integer count = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                aadhaar
+        );
+
+        return count != null && count > 0;
+    }
+    @Override
+    public boolean existsByPan(String pan) {
+
+        String sql = """
+                SELECT COUNT(*)
+                FROM customer_profiles
+                WHERE pan_number = ?
+                """;
+
+        Integer count = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                pan
+        );
+
+        return count != null && count > 0;
+    }
     @Override
     public List<CustomerResponse> getPendingCustomers() {
 

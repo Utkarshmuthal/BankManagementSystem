@@ -47,9 +47,14 @@
     </nav>
 
     <div class="sidebar-footer">
-        <a href="${pageContext.request.contextPath}/logout" class="nav-link logout-link">
-            <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
-        </a>
+        <a href="../login.jsp"
+   class="nav-link logout-link"
+   id="logoutBtn"
+   onclick="return employeeLogout();">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    <span>Logout</span>
+</a>
     </div>
+    
 </aside>
 <!-- ================= END SIDEBAR ================= -->

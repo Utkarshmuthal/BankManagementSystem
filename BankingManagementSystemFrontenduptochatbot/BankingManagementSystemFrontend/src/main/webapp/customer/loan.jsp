@@ -22,7 +22,7 @@
 
     <!-- Customer Loan Module -->
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/css/loanModule.css">
+          href="${pageContext.request.contextPath}/assets/css/loanModule.css?v=<%= System.currentTimeMillis() %>">
           
           <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/customerNavbar.css">
 
@@ -679,7 +679,7 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/customerDashboard.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/loanCustomer.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/loanCustomer.js?v=<%= System.currentTimeMillis() %>"></script>
 
 </body>
 </html>

@@ -55,9 +55,27 @@ public final class UserQueries {
             WHERE user_id = ?
             """;
 
+    public static final String FIND_EMPLOYEE_ID_BY_USER_ID = """
+            SELECT employee_id
+            FROM employee
+            WHERE user_id = ?
+            """;
+
     public static final String UPDATE_PASSWORD = """
             UPDATE users
             SET password = ?
             WHERE id = ?
             """;
+    
+    public static final String FIND_USER_BY_ID = """
+            SELECT id,
+                   email,
+                   password,
+                   role,
+                   status
+            FROM users
+            WHERE id = ?
+            """;
+    
+    
 }
